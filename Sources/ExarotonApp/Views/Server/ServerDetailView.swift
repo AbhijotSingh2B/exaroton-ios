@@ -89,7 +89,7 @@ struct ServerDetailView: View {
                         ActionButton(label: "Restart", icon: "arrow.clockwise", color: Color(red: 0.8, green: 0.5, blue: 1.0)) {
                             await performAction { try await appState.client.restartServer(id: server.id) }
                         }
-                    } else if currentServer.status == .offline {
+                    } else if currentServer.status == .offline || currentServer.status == .crashed {
                         ActionButton(label: "Start", icon: "play.fill", color: Color(red: 0.3, green: 0.9, blue: 0.5)) {
                             await performAction { try await appState.client.startServer(id: server.id) }
                         }
