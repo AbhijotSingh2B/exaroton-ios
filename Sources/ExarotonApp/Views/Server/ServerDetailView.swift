@@ -45,8 +45,12 @@ struct ServerDetailView: View {
                         .tag(3)
                     FilesView(server: currentServer)
                         .tag(4)
-                    ServerSettingsView(server: currentServer)
+                    LogsView(server: currentServer)
                         .tag(5)
+                    ConfigView(server: currentServer)
+                        .tag(6)
+                    ServerSettingsView(server: currentServer)
+                        .tag(7)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut(duration: 0.25), value: selectedTab)
@@ -106,13 +110,15 @@ struct ServerDetailView: View {
     // MARK: Tab Bar
 
     private var tabBar: some View {
-        let tabs: [(String, String)] = [
-            ("Overview", "house.fill"),
-            ("Console", "terminal.fill"),
-            ("Stats",   "chart.bar.fill"),
-            ("Players", "person.2.fill"),
-            ("Files",   "folder.fill"),
-            ("Settings","gear")
+        let tabs = [
+            ("Overview", "server.rack"),
+            ("Console", "terminal"),
+            ("Stats", "chart.xyaxis.line"),
+            ("Players", "person.2"),
+            ("Files", "folder"),
+            ("Logs", "doc.text"),
+            ("Config", "slider.horizontal.3"),
+            ("Settings", "gear")
         ]
 
         return ScrollView(.horizontal, showsIndicators: false) {
