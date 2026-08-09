@@ -46,7 +46,7 @@ enum ServerStatus: Int, Codable, CustomStringConvertible {
 
 // MARK: - Players
 
-struct ServerPlayers: Codable {
+struct ServerPlayers: Codable, Hashable {
     let max: Int
     let count: Int
     let list: [String]
@@ -54,7 +54,7 @@ struct ServerPlayers: Codable {
 
 // MARK: - Software
 
-struct ServerSoftware: Codable, Identifiable {
+struct ServerSoftware: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let version: String
@@ -62,7 +62,7 @@ struct ServerSoftware: Codable, Identifiable {
 
 // MARK: - Server
 
-struct ExarotonServer: Codable, Identifiable {
+struct ExarotonServer: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let address: String
@@ -96,12 +96,12 @@ struct ExarotonServer: Codable, Identifiable {
 
 // MARK: - RAM
 
-struct ServerRAM: Codable {
+struct ServerRAM: Codable, Hashable {
     let ram: Int // in GB
 }
 
 // MARK: - MOTD
 
-struct ServerMOTD: Codable {
+struct ServerMOTD: Codable, Hashable {
     let motd: String
 }

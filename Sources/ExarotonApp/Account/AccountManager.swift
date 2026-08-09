@@ -18,9 +18,10 @@ struct ExarotonAccount: Codable, Identifiable, Equatable {
 }
 
 // MARK: - Account Store Protocol
-// Conforming to a protocol makes it easy to swap in a multi-account
-// implementation later without touching any view or networking code.
+// @MainActor ensures all access is on the main thread, matching AccountManager.
+// Future multi-account: just add `accounts: [ExarotonAccount]` here.
 
+@MainActor
 protocol AccountStoring: ObservableObject {
     var activeAccount: ExarotonAccount? { get }
     func setActiveAccount(_ account: ExarotonAccount)

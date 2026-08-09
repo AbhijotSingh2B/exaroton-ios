@@ -98,7 +98,7 @@ final class ServerWebSocket: ObservableObject {
     // MARK: Connect / Disconnect
 
     func connect() {
-        var request = URLRequest(url: wsURL)
+        let request = URLRequest(url: wsURL)
         // Additional header auth as fallback
         let task = URLSession.shared.webSocketTask(with: request)
         self.task = task
@@ -231,7 +231,9 @@ final class ServerWebSocket: ObservableObject {
 
     private func startPing() {
         pingTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
-            self?.task?.sendPing { _ in }
+            Task { @MainActor [weak self] in
+                self?.task?.sendPing { _ in }
+            }
         }
     }
 }

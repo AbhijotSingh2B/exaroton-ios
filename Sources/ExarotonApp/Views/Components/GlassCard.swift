@@ -1,8 +1,10 @@
 import SwiftUI
 
-// MARK: - Liquid Glass Card
-// Uses native GlassEffectContainer on iOS 26+
-// Falls back to ultraThinMaterial + rounded rect on iOS 17–25
+// MARK: - Glass Card
+// Premium frosted-glass card using ultraThinMaterial + border overlay.
+// Looks great on iOS 17+ without needing the iOS 26 SDK.
+// When the app runs ON iOS 26 the system automatically upgrades
+// underlying materials to Liquid Glass.
 
 struct GlassCard<Content: View>: View {
     var cornerRadius: CGFloat
@@ -20,24 +22,29 @@ struct GlassCard<Content: View>: View {
     }
 
     var body: some View {
-        if #available(iOS 26, *) {
-            GlassEffectContainer {
-                content()
-                    .padding(padding)
-            }
-            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        } else {
-            content()
-                .padding(padding)
-                .background(
+        content()
+            .padding(padding)
+            .background(
+                ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .fill(.ultraThinMaterial)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                                .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+
+                    // Top specular highlight
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.08), Color.clear],
+                                startPoint: .top,
+                                endPoint: .center
+                            )
                         )
-                )
-        }
+
+                    // Border
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                }
+            )
+            .shadow(color: Color.black.opacity(0.3), radius: 12, x: 0, y: 6)
     }
 }
 
