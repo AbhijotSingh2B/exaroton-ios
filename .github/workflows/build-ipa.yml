@@ -1,0 +1,84 @@
+name: Build Exaroton IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Unsigned IPA
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ─── Select Xcode ──────────────────────────────────────────────────────────
+      # Xcode 26 on macos-15 runner (adjust path if Apple changes it in the runner)
+      - name: Select Xcode 26
+        run: |
+          XCODE_PATH=$(find /Applications -name "Xcode*.app" -maxdepth 1 | sort -r | head -1)
+          echo "Using: $XCODE_PATH"
+          sudo xcode-select -s "$XCODE_PATH"
+          xcodebuild -version
+
+      # ─── Install XcodeGen ──────────────────────────────────────────────────────
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      # ─── Generate Xcode Project from project.yml ───────────────────────────────
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      # ─── Build Archive (no code signing) ──────────────────────────────────────
+      - name: Build Archive
+        run: |
+          xcodebuild archive \
+            -project ExarotonApp.xcodeproj \
+            -scheme ExarotonApp \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath "$RUNNER_TEMP/ExarotonApp.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            SKIP_INSTALL=NO \
+            BUILD_LIBRARY_FOR_DISTRIBUTION=NO \
+            | xcpretty || true
+
+      # ─── Package as .ipa ───────────────────────────────────────────────────────
+      - name: Package IPA
+        run: |
+          APP_PATH=$(find "$RUNNER_TEMP/ExarotonApp.xcarchive" -name "*.app" | head -1)
+          echo "Found app: $APP_PATH"
+          mkdir -p Payload
+          cp -r "$APP_PATH" Payload/
+          zip -r ExarotonApp.ipa Payload/
+          echo "IPA size: $(du -sh ExarotonApp.ipa | cut -f1)"
+
+      # ─── Upload IPA Artifact ───────────────────────────────────────────────────
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ExarotonApp-IPA
+          path: ExarotonApp.ipa
+          retention-days: 30
+
+      # ─── Create GitHub Release (on tags) ──────────────────────────────────────
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ExarotonApp.ipa
+          name: "Exaroton iOS ${{ github.ref_name }}"
+          body: |
+            ## Install Instructions
+            1. Download `ExarotonApp.ipa`
+            2. Open **AltStore** on your Mac/PC
+            3. Drag the `.ipa` onto AltStore (or use File > Sideload)
+            4. AltStore will sign it with your free Apple ID and install it
+            5. Trust the developer certificate in iOS Settings → VPN & Device Management
+            
+            > The app must be **refreshed in AltStore every 7 days** (free Apple ID limit)
