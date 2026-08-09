@@ -141,7 +141,7 @@ struct DashboardView: View {
                 // Credits chip
                 if let credits = appState.accountInfo?.credits {
                     VStack(spacing: 2) {
-                        Text(String(format: "%.0f", credits))
+                        Text(String(format: "%.1f", credits))
                             .font(.system(size: 15, weight: .bold, design: .rounded))
                             .foregroundStyle(Color(red: 0.3, green: 1.0, blue: 0.6))
                         Text("credits")

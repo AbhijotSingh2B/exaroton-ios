@@ -48,7 +48,7 @@ struct AccountView: View {
                                 HStack(spacing: 8) {
                                     Image(systemName: "creditcard.fill")
                                         .foregroundStyle(Color(red: 0.3, green: 1.0, blue: 0.6))
-                                    Text("\(Int(appState.accountInfo?.credits ?? 0)) credits")
+                                    Text("\(String(format: "%.1f", appState.accountInfo?.credits ?? 0.0)) credits")
                                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                                         .foregroundStyle(.white)
                                 }
