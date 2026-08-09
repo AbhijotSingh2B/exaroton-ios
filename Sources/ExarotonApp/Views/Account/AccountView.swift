@@ -116,6 +116,19 @@ struct AccountView: View {
                         }
                         .buttonStyle(GlassButtonStyle())
                         .padding(.horizontal, 20)
+                        
+                        // App Version Tracker
+                        VStack(spacing: 4) {
+                            Text("Exaroton iOS App")
+                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .foregroundStyle(.white.opacity(0.4))
+                            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+                            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+                            Text("Version \(version) (Build \(build))")
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundStyle(.white.opacity(0.3))
+                        }
+                        .padding(.top, 24)
 
                         Spacer(minLength: 40)
                     }
