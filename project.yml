@@ -24,7 +24,7 @@ targets:
       properties:
         CFBundleDisplayName: Exaroton
         CFBundleShortVersionString: "1.0.1"
-        CFBundleVersion: "2"
+        CFBundleVersion: "3"
         UILaunchScreen:
           UIColorName: ""
         UISupportedInterfaceOrientations:

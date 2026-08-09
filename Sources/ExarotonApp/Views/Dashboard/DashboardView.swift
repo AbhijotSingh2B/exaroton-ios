@@ -57,7 +57,9 @@ struct DashboardView: View {
                             emptyState
                         } else {
                             ForEach(appState.servers) { server in
-                                NavigationLink(value: server) {
+                                NavigationLink {
+                                    ServerDetailView(server: server)
+                                } label: {
                                     ServerCardView(server: server)
                                         .padding(.horizontal, 16)
                                 }
@@ -72,9 +74,6 @@ struct DashboardView: View {
                 .refreshable {
                     await appState.loadAll()
                 }
-            }
-            .navigationDestination(for: ExarotonServer.self) { server in
-                ServerDetailView(server: server)
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
