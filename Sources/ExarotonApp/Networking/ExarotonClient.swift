@@ -52,6 +52,7 @@ actor ExarotonClient {
 
         var request = URLRequest(url: url)
         request.httpMethod = method
+        request.cachePolicy = .reloadIgnoringLocalCacheData
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
