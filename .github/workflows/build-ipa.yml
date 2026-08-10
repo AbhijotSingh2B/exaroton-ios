@@ -93,15 +93,14 @@ jobs:
                 "name": "ExarotonApp",
                 "bundleIdentifier": "com.exaroton.app",
                 "developerName": "Exaroton",
-                "versions": [
-                  {
-                    "version": "1.0.0-${{ github.run_number }}",
-                    "date": "$CURRENT_DATE",
-                    "localizedDescription": "Automated Development Build - ${{ github.sha }}",
-                    "downloadURL": "$REPO_URL",
-                    "size": $IPA_SIZE
-                  }
-                ]
+                "subtitle": "Exaroton Server Manager",
+                "localizedDescription": "An automated development build of ExarotonApp.",
+                "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+                "version": "1.0.0-${{ github.run_number }}",
+                "versionDate": "$CURRENT_DATE",
+                "versionDescription": "Automated Development Build - ${{ github.sha }}",
+                "downloadURL": "$REPO_URL",
+                "size": $IPA_SIZE
               }
             ]
           }
