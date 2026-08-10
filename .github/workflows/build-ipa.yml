@@ -49,7 +49,8 @@ jobs:
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             SKIP_INSTALL=NO \
             BUILD_LIBRARY_FOR_DISTRIBUTION=NO \
-            MARKETING_VERSION="1.0.${{ github.run_number }}"
+            MARKETING_VERSION="1.0.${{ github.run_number }}" \
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}"
           echo "--- Archive contents ---"
           find "$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive" -name "*.app" 2>/dev/null || echo "Archive not found at expected path"
           ls -la "$GITHUB_WORKSPACE/build/" 2>/dev/null || true
@@ -99,11 +100,16 @@ jobs:
                 "localizedDescription": "Exaroton is a full-featured, native iOS client for managing your Exaroton Minecraft servers directly from your iPhone or iPad.\n\nFeatures:\n• Dashboard: View all your servers and their current status at a glance.\n• Server Controls: Start, stop, and restart your servers with a single tap.\n• Live Console: Access the server console in real-time to monitor activity and execute commands.\n• Player Management: See who is currently online and manage the player list seamlessly.\n• Native Experience: Designed exclusively for iOS with Dark Mode, smooth animations, and a rich, glassmorphic UI.\n\nBuilt entirely with Swift and SwiftUI to ensure maximum performance and efficiency.",
                 "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
                 "tintColor": "#4CE680",
-                "version": "1.0.${{ github.run_number }}",
-                "versionDate": "$CURRENT_DATE",
-                "versionDescription": "Automated Development Build - ${{ github.sha }}",
-                "downloadURL": "$REPO_URL",
-                "size": $IPA_SIZE
+                "versions": [
+                  {
+                    "version": "1.0.${{ github.run_number }}",
+                    "buildVersion": "${{ github.run_number }}",
+                    "date": "$CURRENT_DATE",
+                    "localizedDescription": "Automated Development Build - ${{ github.sha }}",
+                    "downloadURL": "$REPO_URL",
+                    "size": $IPA_SIZE
+                  }
+                ]
               }
             ]
           }
