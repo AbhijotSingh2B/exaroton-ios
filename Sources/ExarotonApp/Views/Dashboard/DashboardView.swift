@@ -125,7 +125,7 @@ struct DashboardView: View {
                 AccountView()
             }
             .sheet(isPresented: $appState.showDebugConsole) {
-                DebugConsoleView()
+                DebugConsoleView(logger: DebugLogger.shared)
             }
         }
         .task {

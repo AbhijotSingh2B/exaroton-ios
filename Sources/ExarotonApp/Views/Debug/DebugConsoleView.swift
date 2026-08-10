@@ -3,7 +3,7 @@ import SwiftUI
 struct DebugConsoleView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var appState: AppState
-    @ObservedObject var logger = DebugLogger.shared
+    @ObservedObject var logger: DebugLogger
     
     @State private var selectedCategory: LogCategory? = nil
     
