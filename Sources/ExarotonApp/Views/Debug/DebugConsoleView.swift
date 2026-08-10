@@ -20,42 +20,8 @@ struct DebugConsoleView: View {
                 Color(red: 0.05, green: 0.06, blue: 0.08).ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    // Category Filter
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 12) {
-                            FilterChip(title: "ALL", isSelected: selectedCategory == nil) {
-                                selectedCategory = nil
-                            }
-                            ForEach(LogCategory.allCases, id: \.self) { category in
-                                FilterChip(title: category.rawValue, isSelected: selectedCategory == category) {
-                                    selectedCategory = category
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
-                    }
-                    .background(Color.black.opacity(0.2))
-                    
-                    // Logs List
-                    ScrollViewReader { proxy in
-                        ScrollView {
-                            LazyVStack(spacing: 8, alignment: .leading) {
-                                ForEach(filteredLogs) { entry in
-                                    LogEntryView(entry: entry)
-                                        .id(entry.id)
-                                }
-                            }
-                            .padding()
-                        }
-                        .onChange(of: logger.logs.count) { _, _ in
-                            if let last = filteredLogs.last {
-                                withAnimation {
-                                    proxy.scrollTo(last.id, anchor: .bottom)
-                                }
-                            }
-                        }
-                    }
+                    categoryFilter
+                    logsList
                 }
             }
             .navigationTitle("Developer Console")
@@ -74,6 +40,45 @@ struct DebugConsoleView: View {
                     } label: {
                         Image(systemName: "trash")
                             .foregroundStyle(.red)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var categoryFilter: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                FilterChip(title: "ALL", isSelected: selectedCategory == nil) {
+                    selectedCategory = nil
+                }
+                ForEach(LogCategory.allCases, id: \.self) { category in
+                    FilterChip(title: category.rawValue, isSelected: selectedCategory == category) {
+                        selectedCategory = category
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 12)
+        }
+        .background(Color.black.opacity(0.2))
+    }
+    
+    private var logsList: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 8, alignment: .leading) {
+                    ForEach(filteredLogs) { entry in
+                        LogEntryView(entry: entry)
+                            .id(entry.id)
+                    }
+                }
+                .padding()
+            }
+            .onChange(of: logger.logs.count) { _, _ in
+                if let last = filteredLogs.last {
+                    withAnimation {
+                        proxy.scrollTo(last.id, anchor: .bottom)
                     }
                 }
             }

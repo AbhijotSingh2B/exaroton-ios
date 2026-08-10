@@ -60,15 +60,15 @@ actor ExarotonClient {
             request.httpBody = try JSONEncoder().encode(body)
         }
 
-        Task { @MainActor in DebugLogger.shared.log("\(method) \(path)", category: .network) }
+        await DebugLogger.shared.log("\(method) \(path)", category: .network)
 
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse else { throw ExarotonAPIError.unknown }
         
-        Task { @MainActor in DebugLogger.shared.log("\(method) \(path) -> \(http.statusCode)", category: .network) }
+        await DebugLogger.shared.log("\(method) \(path) -> \(http.statusCode)", category: .network)
         
         guard (200..<300).contains(http.statusCode) else {
-            Task { @MainActor in DebugLogger.shared.log("HTTP Error \(http.statusCode) for \(path)", category: .error) }
+            await DebugLogger.shared.log("HTTP Error \(http.statusCode) for \(path)", category: .error)
             throw ExarotonAPIError.httpError(http.statusCode) 
         }
 
