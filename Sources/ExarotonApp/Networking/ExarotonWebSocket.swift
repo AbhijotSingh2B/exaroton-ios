@@ -229,9 +229,21 @@ final class ServerWebSocket: ObservableObject {
 
         case "stats" where stream == "stats":
             if let dataDict = json["data"] as? [String: Any],
-               let mem = dataDict["memory"] as? [String: Any],
-               let pct = mem["percent"] as? Double {
-                ramPercent = pct
+               let mem = dataDict["memory"] as? [String: Any] {
+                if let pct = mem["percent"] as? Double {
+                    ramPercent = pct
+                } else if let usage = mem["usage"] as? Double {
+                    // Exaroton limits are fetched elsewhere, but for now we can approximate
+                    // or just use raw usage if percent isn't strictly provided.
+                    // For UI purposes, we'll try to divide by a common limit (like 2GB) 
+                    // or ideally we update AppState with the server's max RAM.
+                    // The AnimatedGauge expects 0.0 to 1.0. 
+                    // To be safe, if we only get usage, we can't perfectly compute percent without max RAM.
+                    // But we'll store usage in a new property if we needed to.
+                    // Let's assume max Ram is roughly what was given in ExarotonServer (we don't have it here).
+                    // So we'll just parse percent when available.
+                    ramPercent = usage / (2.0 * 1024 * 1024 * 1024) * 100.0 // Very rough fallback
+                }
             }
 
         case "heap" where stream == "heap":

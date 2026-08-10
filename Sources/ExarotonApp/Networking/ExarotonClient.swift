@@ -176,21 +176,19 @@ actor ExarotonClient {
 
     // MARK: - Player Lists
 
-    func getAvailablePlayerLists(serverId: String) async throws -> [PlayerListName] {
+    func getAvailablePlayerLists(serverId: String) async throws -> [String] {
         return try await request(path: "servers/\(serverId)/playerlists")
     }
 
-    func getPlayerList(serverId: String, list: String) async throws -> PlayerList {
+    func getPlayerList(serverId: String, list: String) async throws -> [String] {
         return try await request(path: "servers/\(serverId)/playerlists/\(list)")
     }
-
-    struct PlayerEntries: Encodable { let entries: [String] }
 
     func addPlayersToList(serverId: String, list: String, players: [String]) async throws {
         let _: EmptyData? = try? await request(
             path: "servers/\(serverId)/playerlists/\(list)",
             method: "PUT",
-            body: PlayerEntries(entries: players)
+            body: players
         )
     }
 
@@ -198,7 +196,7 @@ actor ExarotonClient {
         let _: EmptyData? = try? await request(
             path: "servers/\(serverId)/playerlists/\(list)",
             method: "DELETE",
-            body: PlayerEntries(entries: players)
+            body: players
         )
     }
 
@@ -248,17 +246,25 @@ actor ExarotonClient {
 
     // MARK: - Config Files
 
-    func getConfigOptions(serverId: String, file: String) async throws -> ConfigFile {
-        let encodedFile = file.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? file
-        return try await request(path: "servers/\(serverId)/options/\(encodedFile)")
+    func getConfigOptions(serverId: String) async throws -> [ConfigOption] {
+        let dict: [String: ExarotonConfigOptionData] = try await request(path: "servers/\(serverId)/options")
+        return dict.map { key, data in
+            ConfigOption(
+                key: key,
+                value: data.value ?? "",
+                valueType: data.type,
+                label: data.label,
+                documentation: data.documentation,
+                options: data.options
+            )
+        }.sorted { $0.key < $1.key }
     }
 
     struct ConfigUpdateBody: Encodable { let options: [String: String] }
 
-    func updateConfigOptions(serverId: String, file: String, options: [String: String]) async throws {
-        let encodedFile = file.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? file
+    func updateConfigOptions(serverId: String, options: [String: String]) async throws {
         let _: EmptyData? = try? await request(
-            path: "servers/\(serverId)/options/\(encodedFile)",
+            path: "servers/\(serverId)/options",
             method: "POST",
             body: ConfigUpdateBody(options: options)
         )
@@ -277,7 +283,7 @@ actor ExarotonClient {
         var components = URLComponents()
         components.scheme = "wss"
         components.host = "api.exaroton.com"
-        components.path = "/v1/servers/\(serverId)/websocket"
+        components.path = "/v1/servers/\(serverId)/websocket/"
         components.queryItems = [URLQueryItem(name: "authorization", value: token)]
         return components.url
     }

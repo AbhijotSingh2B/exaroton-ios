@@ -7,9 +7,9 @@ struct PlayersView: View {
     let server: ExarotonServer
 
     @EnvironmentObject var appState: AppState
-    @State private var availableLists: [PlayerListName] = []
+    @State private var availableLists: [String] = []
     @State private var selectedList: String = "whitelist"
-    @State private var playerList: PlayerList?
+    @State private var playerList: [String]?
     @State private var isLoading = false
     @State private var newPlayerName = ""
     @State private var showAddSheet = false
@@ -22,18 +22,18 @@ struct PlayersView: View {
             if !availableLists.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
-                        ForEach(availableLists) { list in
+                        ForEach(availableLists, id: \.self) { list in
                             Button {
-                                selectedList = list.name
+                                selectedList = list
                                 Task { await loadList() }
                             } label: {
-                                Text(list.name.capitalized)
+                                Text(list.capitalized)
                                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                                     .padding(.horizontal, 14)
                                     .padding(.vertical, 7)
-                                    .foregroundStyle(selectedList == list.name ? .black : .white.opacity(0.6))
+                                    .foregroundStyle(selectedList == list ? .black : .white.opacity(0.6))
                                     .background(
-                                        Capsule().fill(selectedList == list.name
+                                        Capsule().fill(selectedList == list
                                             ? Color(red: 0.3, green: 0.9, blue: 0.5)
                                             : Color.white.opacity(0.08))
                                     )
@@ -61,13 +61,13 @@ struct PlayersView: View {
             } else if let list = playerList {
                 List {
                     Section {
-                        if list.entries.isEmpty {
+                        if list.isEmpty {
                             Text("No entries in \(selectedList)")
                                 .font(.system(size: 14, design: .rounded))
                                 .foregroundStyle(.white.opacity(0.4))
                                 .listRowBackground(Color.white.opacity(0.04))
                         } else {
-                            ForEach(list.entries, id: \.self) { entry in
+                            ForEach(list, id: \.self) { entry in
                                 HStack(spacing: 12) {
                                     AsyncImage(url: URL(string: "https://crafatar.com/avatars/\(entry)?size=32&overlay")) { img in
                                         img.resizable().frame(width: 30, height: 30)
@@ -84,12 +84,12 @@ struct PlayersView: View {
                                 .listRowBackground(Color.white.opacity(0.04))
                             }
                             .onDelete { idx in
-                                let toRemove = idx.map { list.entries[$0] }
+                                let toRemove = idx.map { list[$0] }
                                 Task { await remove(players: toRemove) }
                             }
                         }
                     } header: {
-                        Text("\(list.entries.count) entries")
+                        Text("\(list.count) entries")
                             .font(.system(size: 12, design: .rounded))
                             .foregroundStyle(.white.opacity(0.3))
                     }

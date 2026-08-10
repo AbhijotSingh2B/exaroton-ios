@@ -7,15 +7,12 @@ struct ConfigView: View {
     let server: ExarotonServer
 
     @EnvironmentObject var appState: AppState
-    @State private var configFile: ConfigFile?
+    @State private var configOptions: [ConfigOption]?
     @State private var editedValues: [String: String] = [:]
     @State private var isLoading = false
     @State private var isSaving = false
     @State private var errorMessage: String?
     @State private var successMessage: String?
-
-    // server.properties is the main config file
-    let fileName = "server.properties"
 
     var body: some View {
         ScrollView {
@@ -36,8 +33,8 @@ struct ConfigView: View {
                             .multilineTextAlignment(.center)
                     }
                     .padding(40)
-                } else if let config = configFile {
-                    ForEach(config.options) { option in
+                } else if let config = configOptions {
+                    ForEach(config) { option in
                         ConfigOptionRow(
                             option: option,
                             value: Binding(
@@ -97,7 +94,7 @@ struct ConfigView: View {
         defer { isLoading = false }
         errorMessage = nil
         do {
-            configFile = try await appState.client.getConfigOptions(serverId: server.id, file: fileName)
+            configOptions = try await appState.client.getConfigOptions(serverId: server.id)
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -107,7 +104,7 @@ struct ConfigView: View {
         isSaving = true
         defer { isSaving = false }
         do {
-            try await appState.client.updateConfigOptions(serverId: server.id, file: fileName, options: editedValues)
+            try await appState.client.updateConfigOptions(serverId: server.id, options: editedValues)
             editedValues = [:]
             withAnimation { successMessage = "Config saved!" }
             try? await Task.sleep(nanoseconds: 2_500_000_000)
