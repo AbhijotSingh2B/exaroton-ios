@@ -30,14 +30,7 @@ final class DebugLogger: ObservableObject {
     func log(_ message: String, category: LogCategory = .system) {
         let entry = LogEntry(category: category, message: message)
         
-        // Ensure UI updates happen on main thread
-        if Thread.isMainThread {
-            appendLog(entry)
-        } else {
-            Task { @MainActor in
-                self.appendLog(entry)
-            }
-        }
+        appendLog(entry)
     }
     
     private func appendLog(_ entry: LogEntry) {

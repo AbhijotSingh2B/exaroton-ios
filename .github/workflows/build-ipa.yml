@@ -87,18 +87,19 @@ jobs:
           
           cat <<EOF > sidestore.json
           {
-            "name": "Exaroton Development",
+            "name": "Exaroton iOS",
             "identifier": "com.exaroton.repo.dev",
-            "description": "Exaroton Server Manager automated development repository.",
-            "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+            "description": "Official SideStore repository for the Exaroton iOS App.",
+            "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
             "apps": [
               {
-                "name": "ExarotonApp",
-                "bundleIdentifier": "com.exaroton.app",
-                "developerName": "Exaroton",
-                "subtitle": "Exaroton Server Manager",
-                "localizedDescription": "An automated development build of ExarotonApp.",
-                "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+                "name": "Exaroton",
+                "bundleIdentifier": "com.exaroton.ios",
+                "developerName": "Abhijot Singh",
+                "subtitle": "Manage your Minecraft servers on the go.",
+                "localizedDescription": "Exaroton is a full-featured, native iOS client for managing your Exaroton Minecraft servers directly from your iPhone or iPad.\n\nFeatures:\n• Dashboard: View all your servers and their current status at a glance.\n• Server Controls: Start, stop, and restart your servers with a single tap.\n• Live Console: Access the server console in real-time to monitor activity and execute commands.\n• Player Management: See who is currently online and manage the player list seamlessly.\n• Native Experience: Designed exclusively for iOS with Dark Mode, smooth animations, and a rich, glassmorphic UI.\n\nBuilt entirely with Swift and SwiftUI to ensure maximum performance and efficiency.",
+                "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+                "tintColor": "#4CE680",
                 "version": "1.0.${{ github.run_number }}",
                 "versionDate": "$CURRENT_DATE",
                 "versionDescription": "Automated Development Build - ${{ github.sha }}",
