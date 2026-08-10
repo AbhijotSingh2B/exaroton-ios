@@ -28,23 +28,32 @@ struct GlassCard<Content: View>: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .fill(.ultraThinMaterial)
+                    
+                    // Base color tint for richness
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .fill(Color.white.opacity(0.03))
 
                     // Top specular highlight
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .fill(
                             LinearGradient(
-                                colors: [Color.white.opacity(0.08), Color.clear],
-                                startPoint: .top,
-                                endPoint: .center
+                                colors: [Color.white.opacity(0.12), Color.white.opacity(0.01), Color.clear],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
                             )
                         )
 
-                    // Border
+                    // Outer Border
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                        .strokeBorder(Color.white.opacity(0.15), lineWidth: 1)
+                        
+                    // Inner Shadow (simulates depth/glass bevel)
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .strokeBorder(Color.black.opacity(0.2), lineWidth: 1)
+                        .padding(1)
                 }
             )
-            .shadow(color: Color.black.opacity(0.3), radius: 12, x: 0, y: 6)
+            .shadow(color: Color.black.opacity(0.4), radius: 16, x: 0, y: 8)
     }
 }
 
@@ -53,8 +62,9 @@ struct GlassCard<Content: View>: View {
 struct GlassButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-            .animation(.spring(duration: 0.2), value: configuration.isPressed)
+            .scaleEffect(configuration.isPressed ? 0.94 : 1.0)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0), value: configuration.isPressed)
     }
 }
 

@@ -6,22 +6,40 @@ struct ServerCardView: View {
 
     let server: ExarotonServer
     @State private var pressed = false
+    @State private var isBreathing = false
+
+    private var statusTint: Color {
+        switch server.status {
+        case .online: return Color(red: 0.2, green: 0.9, blue: 0.45)
+        case .offline, .crashed: return Color(red: 1.0, green: 0.3, blue: 0.3)
+        default: return Color(red: 0.3, green: 0.7, blue: 1.0)
+        }
+    }
 
     var body: some View {
         GlassCard(cornerRadius: 22, padding: 0) {
-            VStack(alignment: .leading, spacing: 0) {
+            ZStack {
+                // Dynamic faint background tint
+                LinearGradient(
+                    colors: [statusTint.opacity(0.04), .clear],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                
+                VStack(alignment: .leading, spacing: 0) {
 
                 // Top: Server name + status
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(server.name)
-                            .font(.system(size: 18, weight: .bold, design: .rounded))
+                            .font(.system(size: 20, weight: .heavy, design: .rounded))
                             .foregroundStyle(.white)
                             .lineLimit(1)
+                            .tracking(0.5)
 
                         Text(server.address)
-                            .font(.system(size: 12, weight: .regular, design: .monospaced))
-                            .foregroundStyle(.white.opacity(0.45))
+                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(.white.opacity(0.5))
                             .lineLimit(1)
                     }
 
@@ -29,6 +47,8 @@ struct ServerCardView: View {
 
                     StatusBadge(status: server.status)
                         .statusGlow(server.status)
+                        .scaleEffect(server.status.isOnline && isBreathing ? 1.05 : 1.0)
+                        .opacity(server.status.isOnline && isBreathing ? 0.8 : 1.0)
                 }
                 .padding(18)
 
@@ -73,8 +93,25 @@ struct ServerCardView: View {
                 .padding(.vertical, 14)
             }
         }
-        .scaleEffect(pressed ? 0.97 : 1.0)
-        .animation(.spring(duration: 0.25, bounce: 0.3), value: pressed)
+        .scaleEffect(pressed ? 0.95 : 1.0)
+        .opacity(pressed ? 0.9 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: pressed)
         .onLongPressGesture(minimumDuration: 0, pressing: { p in pressed = p }, perform: {})
+        .onAppear {
+            if server.status.isOnline {
+                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                    isBreathing = true
+                }
+            }
+        }
+        .onChange(of: server.status) { _, newStatus in
+            if newStatus.isOnline {
+                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                    isBreathing = true
+                }
+            } else {
+                withAnimation { isBreathing = false }
+            }
+        }
     }
 }

@@ -11,16 +11,17 @@ struct ServerDetailView: View {
     @State private var liveServer: ExarotonServer?
     @State private var webSocket: ServerWebSocket?
     @State private var copiedAddress = false
+    @State private var isRotating = false
 
     var currentServer: ExarotonServer { liveServer ?? server }
 
     var body: some View {
         ZStack {
-            // Background
+            // Deep Midnight Background
             LinearGradient(
                 colors: [
-                    Color(red: 0.03, green: 0.07, blue: 0.05),
-                    Color(red: 0.04, green: 0.05, blue: 0.09)
+                    Color(red: 0.01, green: 0.015, blue: 0.03),
+                    Color(red: 0.02, green: 0.03, blue: 0.05)
                 ],
                 startPoint: .top,
                 endPoint: .bottom
@@ -94,8 +95,10 @@ struct ServerDetailView: View {
                     .frame(width: 88, height: 88)
 
                 Circle()
-                    .strokeBorder(statusColor.opacity(0.5), lineWidth: 2.5)
+                    .strokeBorder(style: StrokeStyle(lineWidth: 2.5, dash: currentServer.status.isTransitioning ? [6, 4] : []))
+                    .foregroundStyle(statusColor.opacity(0.5))
                     .frame(width: 78, height: 78)
+                    .rotationEffect(.degrees(currentServer.status.isTransitioning && isRotating ? 360 : 0))
 
                 Image(systemName: statusIcon)
                     .font(.system(size: 28, weight: .semibold))
@@ -146,6 +149,11 @@ struct ServerDetailView: View {
         }
         .padding(.vertical, 8)
         .animation(.spring(duration: 0.4), value: currentServer.status)
+        .onAppear {
+            withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
+                isRotating = true
+            }
+        }
     }
 
     private var statusIcon: String {
@@ -382,10 +390,16 @@ struct ActionButton: View {
             .padding(.vertical, 11)
             .background(
                 Capsule()
-                    .fill(color.opacity(0.2))
+                    .fill(
+                        LinearGradient(
+                            colors: [color.opacity(0.4), color.opacity(0.15)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .overlay(Capsule().strokeBorder(color.opacity(0.5), lineWidth: 1))
             )
-            .shadow(color: color.opacity(0.25), radius: 8, x: 0, y: 4)
+            .shadow(color: color.opacity(0.3), radius: 10, x: 0, y: 5)
         }
         .buttonStyle(GlassButtonStyle())
         .disabled(loading)
@@ -462,16 +476,26 @@ struct MenuTile: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.ultraThinMaterial)
+                
+                // Base tint
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.white.opacity(0.02))
+                    
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(
                         LinearGradient(
-                            colors: [Color.white.opacity(0.06), Color.clear],
-                            startPoint: .top,
-                            endPoint: .center
+                            colors: [Color.white.opacity(0.12), Color.white.opacity(0.01), Color.clear],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
                         )
                     )
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                    .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+                
+                // Inner bevel
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .strokeBorder(Color.black.opacity(0.2), lineWidth: 1)
+                    .padding(1)
             }
         )
         .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)

@@ -6,28 +6,42 @@ struct DashboardView: View {
 
     @EnvironmentObject var appState: AppState
     @State private var showAccount = false
+    @State private var isAnimating = false
 
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background
+                // Deep Midnight Background
                 LinearGradient(
                     colors: [
-                        Color(red: 0.03, green: 0.08, blue: 0.06),
-                        Color(red: 0.04, green: 0.06, blue: 0.10)
+                        Color(red: 0.01, green: 0.015, blue: 0.03),
+                        Color(red: 0.02, green: 0.03, blue: 0.05)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
 
-                // Glow blob
-                Circle()
-                    .fill(Color(red: 0.1, green: 0.6, blue: 0.3).opacity(0.08))
-                    .frame(width: 400, height: 400)
-                    .blur(radius: 80)
-                    .offset(x: 100, y: -150)
-                    .ignoresSafeArea()
+                // Animated Fluid Glows
+                ZStack {
+                    Circle()
+                        .fill(Color(red: 0.1, green: 0.7, blue: 0.4).opacity(0.12))
+                        .frame(width: 450, height: 450)
+                        .blur(radius: 120)
+                        .offset(x: isAnimating ? 80 : -50, y: isAnimating ? -100 : -250)
+                    
+                    Circle()
+                        .fill(Color(red: 0.2, green: 0.4, blue: 0.9).opacity(0.1))
+                        .frame(width: 400, height: 400)
+                        .blur(radius: 100)
+                        .offset(x: isAnimating ? -80 : 50, y: isAnimating ? 200 : 100)
+                }
+                .ignoresSafeArea()
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
+                        isAnimating = true
+                    }
+                }
 
                 ScrollView {
                     LazyVStack(spacing: 14) {
@@ -38,17 +52,23 @@ struct DashboardView: View {
                         // Section label
                         HStack {
                             Text("Your Servers")
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .font(.system(size: 14, weight: .bold, design: .rounded))
                                 .textCase(.uppercase)
-                                .tracking(1)
-                                .foregroundStyle(.white.opacity(0.4))
+                                .tracking(1.5)
+                                .foregroundStyle(
+                                    LinearGradient(colors: [.white.opacity(0.7), .white.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
                             Spacer()
                             Text("\(appState.servers.count)")
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .font(.system(size: 14, weight: .bold, design: .rounded))
                                 .foregroundStyle(.white.opacity(0.3))
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(Capsule().fill(Color.white.opacity(0.05)))
                         }
                         .padding(.horizontal, 20)
-                        .padding(.top, 4)
+                        .padding(.top, 8)
+                        .padding(.bottom, 4)
 
                         // Server list
                         if appState.isLoadingServers && appState.servers.isEmpty {
@@ -141,11 +161,14 @@ struct DashboardView: View {
                 if let credits = appState.accountInfo?.credits {
                     VStack(spacing: 2) {
                         Text(String(format: "%.1f", credits))
-                            .font(.system(size: 15, weight: .bold, design: .rounded))
+                            .font(.system(size: 16, weight: .heavy, design: .rounded))
                             .foregroundStyle(Color(red: 0.3, green: 1.0, blue: 0.6))
+                            .shadow(color: Color(red: 0.3, green: 1.0, blue: 0.6).opacity(0.4), radius: 6, x: 0, y: 0)
                         Text("credits")
-                            .font(.system(size: 11, design: .rounded))
+                            .font(.system(size: 11, weight: .semibold, design: .rounded))
                             .foregroundStyle(.white.opacity(0.4))
+                            .textCase(.uppercase)
+                            .tracking(0.5)
                     }
                 }
             }
