@@ -23,8 +23,8 @@ targets:
       path: Sources/ExarotonApp/Resources/Info.plist
       properties:
         CFBundleDisplayName: Exaroton
-        CFBundleShortVersionString: "1.0.1"
-        CFBundleVersion: "3"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         UILaunchScreen:
           UIColorName: ""
         UISupportedInterfaceOrientations:
