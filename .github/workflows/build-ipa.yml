@@ -5,6 +5,8 @@ on:
     branches: [main, development]
   workflow_dispatch:
 
+permissions:
+  contents: write
 jobs:
   build:
     name: Build Unsigned IPA
