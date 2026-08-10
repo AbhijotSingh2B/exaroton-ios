@@ -14,34 +14,47 @@ struct DebugConsoleView: View {
         return logger.logs
     }
     
+    private let bgColor = Color(red: 0.05, green: 0.06, blue: 0.08)
+    private let accentColor = Color(red: 0.3, green: 0.9, blue: 0.5)
+    
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color(red: 0.05, green: 0.06, blue: 0.08).ignoresSafeArea()
-                
-                VStack(spacing: 0) {
-                    categoryFilter
-                    logsList
+            mainContent
+                .navigationTitle("Developer Console")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarBackground(bgColor, for: .navigationBar)
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                .toolbar {
+                    toolbarContent
                 }
+        }
+    }
+    
+    @ViewBuilder
+    private var mainContent: some View {
+        ZStack {
+            bgColor.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                categoryFilter
+                logsList
             }
-            .navigationTitle("Developer Console")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color(red: 0.05, green: 0.06, blue: 0.08), for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
-                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button(role: .destructive) {
-                        logger.clear()
-                    } label: {
-                        Image(systemName: "trash")
-                            .foregroundStyle(.red)
-                    }
-                }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button("Close") { dismiss() }
+                .foregroundStyle(accentColor)
+        }
+        ToolbarItem(placement: .primaryAction) {
+            Button(role: .destructive) {
+                logger.clear()
+            } label: {
+                Image(systemName: "trash")
+                    .foregroundStyle(.red)
             }
         }
     }
@@ -67,7 +80,7 @@ struct DebugConsoleView: View {
     private var logsList: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVStack(spacing: 8, alignment: .leading) {
+                LazyVStack(alignment: .leading, spacing: 8) {
                     ForEach(filteredLogs) { entry in
                         LogEntryView(entry: entry)
                             .id(entry.id)
@@ -75,7 +88,7 @@ struct DebugConsoleView: View {
                 }
                 .padding()
             }
-            .onChange(of: logger.logs.count) { _, _ in
+            .onChange(of: logger.logs.count) { _ in
                 if let last = filteredLogs.last {
                     withAnimation {
                         proxy.scrollTo(last.id, anchor: .bottom)
