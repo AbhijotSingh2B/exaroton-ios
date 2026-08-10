@@ -91,8 +91,9 @@ struct ServerCardView: View {
                 }
                 .padding(.horizontal, 18)
                 .padding(.vertical, 14)
-            }
-        }
+            } // close VStack
+        } // close ZStack
+        } // close GlassCard
         .scaleEffect(pressed ? 0.95 : 1.0)
         .opacity(pressed ? 0.9 : 1.0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: pressed)
