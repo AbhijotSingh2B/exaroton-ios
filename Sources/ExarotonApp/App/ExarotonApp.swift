@@ -12,9 +12,6 @@ struct ExarotonApp: App {
                 .environmentObject(appState)
                 .environmentObject(notifService)
                 .preferredColorScheme(.dark)
-                .onAppear {
-                    notifService.requestPermission()
-                }
         }
     }
 }

@@ -5,7 +5,7 @@ import SwiftUI
 struct ConsoleView: View {
 
     let server: ExarotonServer
-    let webSocket: ServerWebSocket?
+    @ObservedObject var webSocket: ServerWebSocket
 
     @State private var command = ""
     @State private var autoScroll = true
@@ -37,8 +37,8 @@ struct ConsoleView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 2) {
-                        if let ws = webSocket, !ws.consolLines.isEmpty {
-                            ForEach(Array(ws.consolLines.enumerated()), id: \.offset) { idx, line in
+                        if !webSocket.consoleLines.isEmpty {
+                            ForEach(Array(webSocket.consoleLines.enumerated()), id: \.offset) { idx, line in
                                 ConsoleLineView(line: line)
                                     .id(idx)
                             }
@@ -55,8 +55,8 @@ struct ConsoleView: View {
                     .padding(.vertical, 8)
                 }
                 .background(Color.black.opacity(0.4))
-                .onChange(of: webSocket?.consolLines.count) { _, count in
-                    guard autoScroll, let count, count > 0 else { return }
+                .onChange(of: webSocket.consoleLines.count) { _, count in
+                    guard autoScroll, count > 0 else { return }
                     withAnimation(.linear(duration: 0.1)) {
                         proxy.scrollTo(count - 1, anchor: .bottom)
                     }
@@ -104,18 +104,17 @@ struct ConsoleView: View {
                 )
             }
         }
-        .onAppear {
-            webSocket?.subscribe(to: .console, tail: 50)
-        }
-        .onDisappear {
-            webSocket?.unsubscribe(from: .console)
+        .task {
+            webSocket.subscribe(to: .console, tail: 50)
+            try? await Task.sleep(nanoseconds: UInt64.max)
+            webSocket.unsubscribe(from: .console)
         }
     }
 
     private func sendCommand() {
         let cmd = command.trimmingCharacters(in: .whitespaces)
         guard !cmd.isEmpty else { return }
-        webSocket?.sendCommand(cmd)
+        webSocket.sendCommand(cmd)
         command = ""
     }
 }

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct StatsView: View {
 
-    let webSocket: ServerWebSocket?
+    @ObservedObject var webSocket: ServerWebSocket
 
     var body: some View {
         ScrollView {
@@ -14,8 +14,8 @@ struct StatsView: View {
                 HStack(spacing: 40) {
                     VStack(spacing: 12) {
                         AnimatedGauge(
-                            value: (webSocket?.ramPercent ?? 0) / 100,
-                            label: String(format: "%.0f%%", webSocket?.ramPercent ?? 0),
+                            value: (webSocket.ramPercent) / 100,
+                            label: String(format: "%.0f%%", webSocket.ramPercent),
                             sublabel: "RAM",
                             size: 130,
                             lineWidth: 12
@@ -26,7 +26,7 @@ struct StatsView: View {
                     }
 
                     VStack(spacing: 12) {
-                        TPSGauge(averageTickTime: webSocket?.averageTickTime ?? 0)
+                        TPSGauge(averageTickTime: webSocket.averageTickTime)
                         Text("Tick Speed")
                             .font(.system(size: 13, weight: .medium, design: .rounded))
                             .foregroundStyle(.white.opacity(0.5))
@@ -41,14 +41,14 @@ struct StatsView: View {
                         statRow(
                             icon: "memorychip.fill",
                             label: "RAM Usage",
-                            value: String(format: "%.1f%%", webSocket?.ramPercent ?? 0),
+                            value: String(format: "%.1f%%", webSocket.ramPercent),
                             color: Color(red: 0.3, green: 0.7, blue: 1.0)
                         )
                         Divider().background(Color.white.opacity(0.06)).padding(.vertical, 8)
                         statRow(
                             icon: "clock.fill",
                             label: "Avg. Tick Time",
-                            value: String(format: "%.2f ms", webSocket?.averageTickTime ?? 0),
+                            value: String(format: "%.2f ms", webSocket.averageTickTime),
                             color: Color(red: 0.8, green: 0.5, blue: 1.0)
                         )
                         Divider().background(Color.white.opacity(0.06)).padding(.vertical, 8)
@@ -56,18 +56,18 @@ struct StatsView: View {
                             icon: "speedometer",
                             label: "TPS",
                             value: {
-                                let tickTime = webSocket?.averageTickTime ?? 0
+                                let tickTime = webSocket.averageTickTime
                                 let tps = tickTime > 0 ? min(20, 1000 / tickTime) : 0
                                 return String(format: "%.1f / 20", tps)
                             }(),
                             color: Color(red: 0.3, green: 1.0, blue: 0.5)
                         )
-                        if let heap = webSocket?.heapUsageBytes, heap > 0 {
+                        if webSocket.heapUsageBytes > 0 {
                             Divider().background(Color.white.opacity(0.06)).padding(.vertical, 8)
                             statRow(
                                 icon: "internaldrive.fill",
                                 label: "Heap Usage",
-                                value: formatBytes(heap),
+                                value: formatBytes(webSocket.heapUsageBytes),
                                 color: Color(red: 1.0, green: 0.7, blue: 0.3)
                             )
                         }
@@ -78,15 +78,16 @@ struct StatsView: View {
                 Spacer(minLength: 32)
             }
         }
-        .onAppear {
-            webSocket?.subscribe(to: .stats)
-            webSocket?.subscribe(to: .tick)
-            webSocket?.subscribe(to: .heap)
-        }
-        .onDisappear {
-            webSocket?.unsubscribe(from: .stats)
-            webSocket?.unsubscribe(from: .tick)
-            webSocket?.unsubscribe(from: .heap)
+        .task {
+            webSocket.subscribe(to: .stats)
+            webSocket.subscribe(to: .tick)
+            webSocket.subscribe(to: .heap)
+            
+            try? await Task.sleep(nanoseconds: UInt64.max)
+            
+            webSocket.unsubscribe(from: .stats)
+            webSocket.unsubscribe(from: .tick)
+            webSocket.unsubscribe(from: .heap)
         }
     }
 

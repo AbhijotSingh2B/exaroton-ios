@@ -60,8 +60,8 @@ struct ServerDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await setupWebSocket()
-        }
-        .onDisappear {
+            // Keep the task alive to maintain the connection
+            try? await Task.sleep(nanoseconds: UInt64.max)
             webSocket?.disconnect()
         }
     }
@@ -253,17 +253,25 @@ struct ServerDetailView: View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
 
             NavigationLink {
-                ConsoleView(server: currentServer, webSocket: webSocket)
-                    .navigationTitle("Console")
-                    .navigationBarTitleDisplayMode(.inline)
+                if let ws = webSocket {
+                    ConsoleView(server: currentServer, webSocket: ws)
+                        .navigationTitle("Console")
+                        .navigationBarTitleDisplayMode(.inline)
+                } else {
+                    Text("Connecting...")
+                }
             } label: {
                 MenuTile(icon: "terminal.fill", title: "Console", subtitle: "Live server output", color: Color(red: 0.3, green: 0.9, blue: 0.5))
             }
 
             NavigationLink {
-                StatsView(webSocket: webSocket)
-                    .navigationTitle("Stats")
-                    .navigationBarTitleDisplayMode(.inline)
+                if let ws = webSocket {
+                    StatsView(webSocket: ws)
+                        .navigationTitle("Stats")
+                        .navigationBarTitleDisplayMode(.inline)
+                } else {
+                    Text("Connecting...")
+                }
             } label: {
                 MenuTile(icon: "chart.xyaxis.line", title: "Stats", subtitle: "RAM & TPS graphs", color: Color(red: 0.3, green: 0.7, blue: 1.0))
             }

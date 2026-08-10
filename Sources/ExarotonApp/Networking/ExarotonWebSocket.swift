@@ -70,7 +70,7 @@ final class ServerWebSocket: ObservableObject {
 
     // MARK: Published State
     @Published var serverStatus: ServerStatus = .offline
-    @Published var consolLines: [String] = []
+    @Published var consoleLines: [String] = []
     @Published var ramPercent: Double = 0
     @Published var heapUsageBytes: Int = 0
     @Published var averageTickTime: Double = 0
@@ -83,6 +83,10 @@ final class ServerWebSocket: ObservableObject {
     private let serverId: String
     private let wsURL: URL
     private var subscribedStreams: Set<WSStream> = []
+    
+    // Throttling
+    private let lineSubject = PassthroughSubject<String, Never>()
+    private var lineCancellable: AnyCancellable?
 
     // MARK: Notification Callback
 
@@ -93,6 +97,16 @@ final class ServerWebSocket: ObservableObject {
     init(serverId: String, wsURL: URL) {
         self.serverId = serverId
         self.wsURL = wsURL
+        
+        lineCancellable = lineSubject
+            .collect(.byTime(DispatchQueue.main, .milliseconds(200)))
+            .sink { [weak self] lines in
+                guard let self = self, !lines.isEmpty else { return }
+                self.consoleLines.append(contentsOf: lines)
+                if self.consoleLines.count > 2000 {
+                    self.consoleLines.removeFirst(self.consoleLines.count - 2000)
+                }
+            }
     }
 
     // MARK: Connect / Disconnect
@@ -199,11 +213,7 @@ final class ServerWebSocket: ObservableObject {
 
         case "line" where stream == "console":
             if let line = json["data"] as? String {
-                consolLines.append(line)
-                // Cap at 2000 lines
-                if consolLines.count > 2000 {
-                    consolLines.removeFirst(consolLines.count - 2000)
-                }
+                lineSubject.send(line)
             }
 
         case "stats" where stream == "stats":
