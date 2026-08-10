@@ -74,13 +74,62 @@ jobs:
           zip -r ExarotonApp.ipa Payload/
           echo "IPA size: $(du -sh ExarotonApp.ipa | cut -f1)"
 
+      # ─── Generate SideStore JSON ───────────────────────────────────────────────
+      - name: Generate SideStore JSON
+        run: |
+          # Get file size cross-platform (macOS/Linux)
+          IPA_SIZE=$(stat -f%z ExarotonApp.ipa || stat -c%s ExarotonApp.ipa)
+          CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          REPO_URL="https://github.com/${{ github.repository }}/releases/download/latest/ExarotonApp.ipa"
+          
+          cat <<EOF > sidestore.json
+          {
+            "name": "Exaroton Development",
+            "identifier": "com.exaroton.repo.dev",
+            "apps": [
+              {
+                "name": "ExarotonApp",
+                "bundleIdentifier": "com.exaroton.app",
+                "developerName": "Exaroton",
+                "version": "1.0.0-${{ github.run_number }}",
+                "versionDate": "$CURRENT_DATE",
+                "versionDescription": "Automated Development Build - ${{ github.sha }}",
+                "downloadURL": "$REPO_URL",
+                "size": $IPA_SIZE
+              }
+            ]
+          }
+          EOF
+          cat sidestore.json
+
       # ─── Upload IPA Artifact ───────────────────────────────────────────────────
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: ExarotonApp-IPA
-          path: ExarotonApp.ipa
+          path: |
+            ExarotonApp.ipa
+            sidestore.json
           retention-days: 30
+
+      # ─── Update Rolling Release (Development) ──────────────────────────────────
+      - name: Update Rolling Release
+        if: github.ref == 'refs/heads/development'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ExarotonApp.ipa
+            sidestore.json
+          name: "Latest Development Build"
+          tag_name: "latest"
+          body: |
+            ## Automated Rolling Release
+            This release is automatically updated on every push to \`development\`.
+
+            ### SideStore Installation
+            Add this source URL to SideStore for OTA updates:
+            \`https://github.com/${{ github.repository }}/releases/download/latest/sidestore.json\`
+          prerelease: true
 
       # ─── Create GitHub Release (on tags) ──────────────────────────────────────
       - name: Create Release
