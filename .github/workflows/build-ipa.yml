@@ -93,11 +93,15 @@ jobs:
                 "name": "ExarotonApp",
                 "bundleIdentifier": "com.exaroton.app",
                 "developerName": "Exaroton",
-                "version": "1.0.0-${{ github.run_number }}",
-                "versionDate": "$CURRENT_DATE",
-                "versionDescription": "Automated Development Build - ${{ github.sha }}",
-                "downloadURL": "$REPO_URL",
-                "size": $IPA_SIZE
+                "versions": [
+                  {
+                    "version": "1.0.0-${{ github.run_number }}",
+                    "date": "$CURRENT_DATE",
+                    "localizedDescription": "Automated Development Build - ${{ github.sha }}",
+                    "downloadURL": "$REPO_URL",
+                    "size": $IPA_SIZE
+                  }
+                ]
               }
             ]
           }
