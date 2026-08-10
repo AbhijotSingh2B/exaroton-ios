@@ -1,0 +1,339 @@
+﻿Build Unsigned IPA	Set up job	∩╗┐2026-08-10T15:07:45.6405590Z Current runner version: '2.336.0'
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6424980Z ##[group]Runner Image Provisioner
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6425610Z Hosted Compute Agent
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6425970Z Version: 20260707.563
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6426360Z Commit: 02667638d2b423fbc733a8e32a88b44996a3ba6e
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6426830Z Build Date: 2026-07-07T19:33:50Z
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6427250Z Worker ID: {8335f26a-bc99-4793-a9d7-b38947cddecd}
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6427700Z Azure Region: westus
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6428050Z ##[endgroup]
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6429820Z ##[group]Operating System
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6430240Z macOS
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6430560Z 15.7.7
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6433120Z 24G720
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6433460Z ##[endgroup]
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6433800Z ##[group]Runner Image
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6434170Z Image: macos-15-arm64
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6434530Z Version: 20260727.0256.1
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6435250Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260727.0256/images/macos/macos-15-arm64-Readme.md
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6436390Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260727.0256
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6437020Z ##[endgroup]
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6437790Z ##[group]GITHUB_TOKEN Permissions
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6439260Z Contents: read
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6439620Z Metadata: read
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6439960Z Packages: read
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6440300Z ##[endgroup]
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6442830Z Secret source: Actions
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6460560Z Prepare workflow directory
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6947560Z Prepare all required actions
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.6987320Z Getting action download info
+Build Unsigned IPA	Set up job	2026-08-10T15:07:45.9074900Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Build Unsigned IPA	Set up job	2026-08-10T15:07:46.1780590Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Build Unsigned IPA	Set up job	2026-08-10T15:07:46.3234760Z Download action repository 'softprops/action-gh-release@v2' (SHA:3bb12739c298aeb8a4eeaf626c5b8d85266b0e65)
+Build Unsigned IPA	Set up job	2026-08-10T15:07:47.4231080Z Complete job name: Build Unsigned IPA
+Build Unsigned IPA	Checkout code	∩╗┐2026-08-10T15:07:47.5626920Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5634560Z ##[group]Run actions/checkout@v4
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5635340Z with:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5635940Z   repository: AbhijotSingh2B/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5641670Z   token: ***
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5642220Z   ssh-strict: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5642790Z   ssh-user: git
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5643370Z   persist-credentials: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5644000Z   clean: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5644580Z   sparse-checkout-cone-mode: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5645260Z   fetch-depth: 1
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5645830Z   fetch-tags: false
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5646420Z   show-progress: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5647040Z   lfs: false
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5647590Z   submodules: false
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5648210Z   set-safe-directory: true
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5648870Z   allow-unsafe-pr-checkout: false
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.5649650Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9433290Z Syncing repository: AbhijotSingh2B/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9435340Z ##[group]Getting Git version info
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9436570Z Working directory is '/Users/runner/work/exaroton-ios/exaroton-ios'
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9438040Z [command]/opt/homebrew/bin/git version
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9963320Z git version 2.55.0
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9981360Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9988020Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/73bca5f4-986e-4746-b9ea-015ebabd49d4/.gitconfig'
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9991720Z Temporarily overriding HOME='/Users/runner/work/_temp/73bca5f4-986e-4746-b9ea-015ebabd49d4' before making global git config changes
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9994730Z Adding repository directory to the temporary git global config as a safe directory
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:47.9997360Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/exaroton-ios/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0086100Z Deleting the contents of '/Users/runner/work/exaroton-ios/exaroton-ios'
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0089340Z ##[group]Initializing the repository
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0092040Z [command]/opt/homebrew/bin/git init /Users/runner/work/exaroton-ios/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0266930Z hint: Using 'master' as the name for the initial branch. This default branch name
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0268450Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0269750Z hint: to use in all of your new repositories, which will suppress this warning,
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0270740Z hint: call:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0271280Z hint:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0271950Z hint: 	git config --global init.defaultBranch <name>
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0272760Z hint:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0273500Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0274820Z hint: 'development'. The just-created branch can be renamed via this command:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0275810Z hint:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0276360Z hint: 	git branch -m <name>
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0276980Z hint:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0277820Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0279180Z Initialized empty Git repository in /Users/runner/work/exaroton-ios/exaroton-ios/.git/
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0281750Z [command]/opt/homebrew/bin/git remote add origin https://github.com/AbhijotSingh2B/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0338640Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0339760Z ##[group]Disabling automatic garbage collection
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0340770Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0387580Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0388550Z ##[group]Setting up auth
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0390730Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.0440450Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.1319230Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.1368620Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.1944680Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.1990260Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.2935870Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.2999360Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.3000940Z ##[group]Fetching the repository
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:48.3002960Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +86a068084f0d4fcce168d4bde226af0458ea744b:refs/remotes/origin/development
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5030260Z From https://github.com/AbhijotSingh2B/exaroton-ios
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5030870Z  * [new ref]         86a068084f0d4fcce168d4bde226af0458ea744b -> origin/development
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5032000Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5032360Z ##[group]Determining the checkout info
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5033210Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5036480Z [command]/opt/homebrew/bin/git sparse-checkout disable
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5098850Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5150740Z ##[group]Checking out the ref
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5153060Z [command]/opt/homebrew/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5312830Z Switched to a new branch 'development'
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5318780Z branch 'development' set up to track 'origin/development'.
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5321630Z ##[endgroup]
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5385720Z [command]/opt/homebrew/bin/git log -1 --format=%H
+Build Unsigned IPA	Checkout code	2026-08-10T15:07:49.5447690Z 86a068084f0d4fcce168d4bde226af0458ea744b
+Build Unsigned IPA	Select Xcode 26	∩╗┐2026-08-10T15:07:49.6202240Z ##[group]Run XCODE_PATH=$(find /Applications -name "Xcode*.app" -maxdepth 1 | sort -r | head -1)
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6202810Z ^[[36;1mXCODE_PATH=$(find /Applications -name "Xcode*.app" -maxdepth 1 | sort -r | head -1)^[[0m
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6203160Z ^[[36;1mecho "Using: $XCODE_PATH"^[[0m
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6203390Z ^[[36;1msudo xcode-select -s "$XCODE_PATH"^[[0m
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6203640Z ^[[36;1mxcodebuild -version^[[0m
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6235490Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6235700Z ##[endgroup]
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:49.6451460Z Using: /Applications/Xcode.app
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:50.4400140Z Xcode 16.4
+Build Unsigned IPA	Select Xcode 26	2026-08-10T15:07:50.4400760Z Build version 16F6
+Build Unsigned IPA	Install XcodeGen	∩╗┐2026-08-10T15:07:50.4431240Z ##[group]Run brew install xcodegen
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:50.4431540Z ^[[36;1mbrew install xcodegen^[[0m
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:50.4460560Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:50.4460780Z ##[endgroup]
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:52.7906200Z ##[warning]The following taps are not trusted:
+Build Unsigned IPA	Install XcodeGen	  aws/tap
+Build Unsigned IPA	Install XcodeGen	
+Build Unsigned IPA	Install XcodeGen	Homebrew is currently ignoring formulae, casks and commands from these taps because tap trust is required.
+Build Unsigned IPA	Install XcodeGen	Untap them with:
+Build Unsigned IPA	Install XcodeGen	  brew untap aws/tap
+Build Unsigned IPA	Install XcodeGen	Trust specific formulae, casks and commands with:
+Build Unsigned IPA	Install XcodeGen	  brew trust --formula <user>/<tap>/<formula>
+Build Unsigned IPA	Install XcodeGen	  brew trust --cask <user>/<tap>/<cask>
+Build Unsigned IPA	Install XcodeGen	  brew trust --command <user>/<tap>/<command>
+Build Unsigned IPA	Install XcodeGen	Whole-tap trust is broader and includes all current and future formulae,
+Build Unsigned IPA	Install XcodeGen	casks and commands from the listed taps. Trust whole taps with:
+Build Unsigned IPA	Install XcodeGen	  brew trust aws/tap
+Build Unsigned IPA	Install XcodeGen	To disable trust checks:
+Build Unsigned IPA	Install XcodeGen	  export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
+Build Unsigned IPA	Install XcodeGen	This is not recommended and will be removed in a later release.
+Build Unsigned IPA	Install XcodeGen	For more information, see:
+Build Unsigned IPA	Install XcodeGen	  https://docs.brew.sh/Tap-Trust
+Build Unsigned IPA	Install XcodeGen	
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:53.1500910Z ^[[34m==>^[[0m ^[[1mWould install 1 formula:^[[0m
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:53.1602180Z xcodegen
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:53.1703580Z ^[[34m==>^[[0m ^[[1mDownloading https://ghcr.io/v2/homebrew/core/xcodegen/manifests/2.46.0-1^[[0m
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:53.5612600Z ^[[32m==>^[[0m ^[[1mFetching downloads for: ^[[32mxcodegen^[[39m^[[0m
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:54.0776280Z Γ£ö∩╕Ä Bottle xcodegen (2.46.0)
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:54.1000760Z ^[[34m==>^[[0m ^[[1mPouring xcodegen--2.46.0.arm64_sequoia.bottle.1.tar.gz^[[0m
+Build Unsigned IPA	Install XcodeGen	2026-08-10T15:07:54.1615310Z ≡ƒì║  /opt/homebrew/Cellar/xcodegen/2.46.0: 38 files, 7.5MB
+Build Unsigned IPA	Generate Xcode Project	∩╗┐2026-08-10T15:07:54.1738300Z ##[group]Run xcodegen generate
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.1738550Z ^[[36;1mxcodegen generate^[[0m
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.1767040Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.1767230Z ##[endgroup]
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.2004780Z ΓÜÖ∩╕Å  Generating plists...
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.2011170Z ΓÜÖ∩╕Å  Generating project...
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.2110650Z ΓÜÖ∩╕Å  Writing project...
+Build Unsigned IPA	Generate Xcode Project	2026-08-10T15:07:54.2161480Z Created project at /Users/runner/work/exaroton-ios/exaroton-ios/ExarotonApp.xcodeproj
+Build Unsigned IPA	Build Archive	∩╗┐2026-08-10T15:07:54.2198710Z ##[group]Run mkdir -p build
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2198960Z ^[[36;1mmkdir -p build^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2199120Z ^[[36;1mxcodebuild archive \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2199300Z ^[[36;1m  -project ExarotonApp.xcodeproj \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2199530Z ^[[36;1m  -scheme ExarotonApp \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2199710Z ^[[36;1m  -sdk iphoneos \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2199880Z ^[[36;1m  -configuration Release \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2200170Z ^[[36;1m  -archivePath "$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive" \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2200450Z ^[[36;1m  CODE_SIGNING_ALLOWED=NO \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2200660Z ^[[36;1m  CODE_SIGNING_REQUIRED=NO \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2200850Z ^[[36;1m  CODE_SIGN_IDENTITY="" \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2201060Z ^[[36;1m  AD_HOC_CODE_SIGNING_ALLOWED=YES \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2201280Z ^[[36;1m  SKIP_INSTALL=NO \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2203070Z ^[[36;1m  BUILD_LIBRARY_FOR_DISTRIBUTION=NO \^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2203340Z ^[[36;1m  | xcpretty || true^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2203560Z ^[[36;1mecho "--- Archive contents ---"^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2204060Z ^[[36;1mfind "$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive" -name "*.app" 2>/dev/null || echo "Archive not found at expected path"^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2204610Z ^[[36;1mls -la "$GITHUB_WORKSPACE/build/" 2>/dev/null || true^[[0m
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2233050Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:54.2233360Z ##[endgroup]
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:56.9290710Z --- xcodebuild: WARNING: Using the first of multiple matching destinations:
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:56.9291490Z { platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:56.9292290Z { platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:345a0b8913c877e2f668e41a9b80daf1e4a79867, name:My Mac }
+Build Unsigned IPA	Build Archive	2026-08-10T15:07:56.9309750Z { platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:00.6229400Z Γû╕ Processing Info.plist
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:16.2380140Z Γû╕ Linking ExarotonApp
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:16.9411780Z Γû╕ Generating 'ExarotonApp.app.dSYM'
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0015560Z Γû╕ Touching ExarotonApp.app (in target 'ExarotonApp' from project 'ExarotonApp')
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0217580Z Γû╕ Archive Succeeded
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0321850Z --- Archive contents ---
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0418000Z /Users/runner/work/exaroton-ios/exaroton-ios/build/ExarotonApp.xcarchive/Products/Applications/ExarotonApp.app
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0518250Z total 0
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0619350Z drwxr-xr-x   3 runner  staff   96 Aug 10 15:08 .
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0719960Z drwxr-xr-x  11 runner  staff  352 Aug 10 15:07 ..
+Build Unsigned IPA	Build Archive	2026-08-10T15:08:17.0820980Z drwxr-xr-x   5 runner  staff  160 Aug 10 15:08 ExarotonApp.xcarchive
+Build Unsigned IPA	Package IPA	∩╗┐2026-08-10T15:08:17.0912180Z ##[group]Run ARCHIVE="$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive"
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0912620Z ^[[36;1mARCHIVE="$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive"^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0912920Z ^[[36;1mecho "Looking in: $ARCHIVE"^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0913170Z ^[[36;1mls -la "$GITHUB_WORKSPACE/build/" || true^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0913480Z ^[[36;1m# Try archive Products path first, then search whole archive^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0913910Z ^[[36;1mAPP_PATH=$(find "$ARCHIVE/Products" -name "*.app" -maxdepth 3 2>/dev/null | head -1)^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0914260Z ^[[36;1mif [ -z "$APP_PATH" ]; then^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0914540Z ^[[36;1m  APP_PATH=$(find "$ARCHIVE" -name "*.app" 2>/dev/null | head -1)^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0914810Z ^[[36;1mfi^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0914980Z ^[[36;1mif [ -z "$APP_PATH" ]; then^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0915240Z ^[[36;1m  echo "ERROR: Could not find .app in archive. Contents:"^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0915570Z ^[[36;1m  find "$GITHUB_WORKSPACE/build" -type f | head -50^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0915860Z ^[[36;1m  exit 1^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0916000Z ^[[36;1mfi^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0916170Z ^[[36;1mecho "Found app: $APP_PATH"^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0916380Z ^[[36;1mmkdir -p Payload^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0916580Z ^[[36;1mcp -r "$APP_PATH" Payload/^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0916790Z ^[[36;1mzip -r ExarotonApp.ipa Payload/^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.0917080Z ^[[36;1mecho "IPA size: $(du -sh ExarotonApp.ipa | cut -f1)"^[[0m
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.1891140Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.1891370Z ##[endgroup]
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2230120Z Looking in: /Users/runner/work/exaroton-ios/exaroton-ios/build/ExarotonApp.xcarchive
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2331820Z total 0
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2403570Z drwxr-xr-x   3 runner  staff   96 Aug 10 15:08 .
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2490580Z drwxr-xr-x  11 runner  staff  352 Aug 10 15:07 ..
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2591700Z drwxr-xr-x   5 runner  staff  160 Aug 10 15:08 ExarotonApp.xcarchive
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2686360Z Found app: /Users/runner/work/exaroton-ios/exaroton-ios/build/ExarotonApp.xcarchive/Products/Applications/ExarotonApp.app
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2727470Z   adding: Payload/ (stored 0%)
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2763040Z   adding: Payload/ExarotonApp.app/ (stored 0%)
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.2949640Z   adding: Payload/ExarotonApp.app/ExarotonApp (deflated 61%)
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.3050590Z   adding: Payload/ExarotonApp.app/Info.plist (deflated 35%)
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.3134400Z   adding: Payload/ExarotonApp.app/PkgInfo (stored 0%)
+Build Unsigned IPA	Package IPA	2026-08-10T15:08:17.3235400Z IPA size: 376K
+Build Unsigned IPA	Generate SideStore JSON	∩╗┐2026-08-10T15:08:17.3375560Z ##[group]Run # Get file size cross-platform (macOS/Linux)
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3375960Z ^[[36;1m# Get file size cross-platform (macOS/Linux)^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3376300Z ^[[36;1mIPA_SIZE=$(stat -f%z ExarotonApp.ipa || stat -c%s ExarotonApp.ipa)^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3376660Z ^[[36;1mCURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3377100Z ^[[36;1mREPO_URL="https://github.com/AbhijotSingh2B/exaroton-ios/releases/download/latest/ExarotonApp.ipa"^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3377500Z ^[[36;1m^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3377650Z ^[[36;1mcat <<EOF > sidestore.json^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3377860Z ^[[36;1m{^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3378030Z ^[[36;1m  "name": "Exaroton Development",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3378290Z ^[[36;1m  "identifier": "com.exaroton.repo.dev",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3378510Z ^[[36;1m  "apps": [^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3378680Z ^[[36;1m    {^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3378830Z ^[[36;1m      "name": "ExarotonApp",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3379100Z ^[[36;1m      "bundleIdentifier": "com.exaroton.app",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3379400Z ^[[36;1m      "developerName": "Exaroton",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3379630Z ^[[36;1m      "version": "1.0.0-14",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3379830Z ^[[36;1m      "versionDate": "$CURRENT_DATE",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3380320Z ^[[36;1m      "versionDescription": "Automated Development Build - 86a068084f0d4fcce168d4bde226af0458ea744b",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3380720Z ^[[36;1m      "downloadURL": "$REPO_URL",^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3380930Z ^[[36;1m      "size": $IPA_SIZE^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3381130Z ^[[36;1m    }^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3381330Z ^[[36;1m  ]^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3381490Z ^[[36;1m}^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3381610Z ^[[36;1mEOF^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3381800Z ^[[36;1mcat sidestore.json^[[0m
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3416190Z shell: /bin/bash -e {0}
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3416380Z ##[endgroup]
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3692480Z {
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3692820Z   "name": "Exaroton Development",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3693070Z   "identifier": "com.exaroton.repo.dev",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3693350Z   "apps": [
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3693520Z     {
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3693740Z       "name": "ExarotonApp",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3693960Z       "bundleIdentifier": "com.exaroton.app",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3694200Z       "developerName": "Exaroton",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3694410Z       "version": "1.0.0-14",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3694700Z       "versionDate": "2026-08-10T15:08:17Z",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3695080Z       "versionDescription": "Automated Development Build - 86a068084f0d4fcce168d4bde226af0458ea744b",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3695690Z       "downloadURL": "https://github.com/AbhijotSingh2B/exaroton-ios/releases/download/latest/ExarotonApp.ipa",
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3696100Z       "size": 383960
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3696270Z     }
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3696390Z   ]
+Build Unsigned IPA	Generate SideStore JSON	2026-08-10T15:08:17.3696530Z }
+Build Unsigned IPA	Upload IPA	∩╗┐2026-08-10T15:08:17.3749010Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3750350Z ##[group]Run actions/upload-artifact@v4
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3750560Z with:
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3750700Z   name: ExarotonApp-IPA
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3750900Z   path: ExarotonApp.ipa
+Build Unsigned IPA	Upload IPA	sidestore.json
+Build Unsigned IPA	Upload IPA	
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3751110Z   retention-days: 30
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3751280Z   if-no-files-found: warn
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3751450Z   compression-level: 6
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3751680Z   overwrite: false
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3751880Z   include-hidden-files: false
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.3752280Z ##[endgroup]
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.7527870Z (node:5912) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.7628440Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.8715910Z Multiple search paths detected. Calculating the least common ancestor of all paths
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.8897040Z The least common ancestor is /Users/runner/work/exaroton-ios/exaroton-ios. This will be the root directory of the artifact
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.8912310Z With the provided path, there will be 2 files uploaded
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.8933360Z Artifact name is valid!
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.8933680Z Root directory input is valid!
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.9376880Z (node:5912) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.9499930Z Beginning upload of artifact content to blob storage
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:17.9878230Z Uploaded bytes 383824
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.0026780Z Finished uploading artifact content to blob storage!
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.0028910Z SHA256 digest of uploaded artifact zip is 5b7b020b88495810413fd44d1fda564ab6b364e672d28eb5222147de508482c8
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.0032630Z Finalizing artifact upload
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.1531480Z Artifact ExarotonApp-IPA.zip successfully finalized. Artifact ID 9067992716
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.1532200Z Artifact ExarotonApp-IPA has been successfully uploaded! Final size is 383824 bytes. Artifact ID is 9067992716
+Build Unsigned IPA	Upload IPA	2026-08-10T15:08:18.1537670Z Artifact download URL: https://github.com/AbhijotSingh2B/exaroton-ios/actions/runs/31401903580/artifacts/9067992716
+Build Unsigned IPA	Update Rolling Release	∩╗┐2026-08-10T15:08:18.1703120Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1704190Z ##[group]Run softprops/action-gh-release@v2
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1704420Z with:
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1704600Z   files: ExarotonApp.ipa
+Build Unsigned IPA	Update Rolling Release	sidestore.json
+Build Unsigned IPA	Update Rolling Release	
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1704850Z   name: Latest Development Build
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1705050Z   tag_name: latest
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1705880Z   body: ## Automated Rolling Release
+Build Unsigned IPA	Update Rolling Release	This release is automatically updated on every push to \`development\`.
+Build Unsigned IPA	Update Rolling Release	
+Build Unsigned IPA	Update Rolling Release	### SideStore Installation
+Build Unsigned IPA	Update Rolling Release	Add this source URL to SideStore for OTA updates:
+Build Unsigned IPA	Update Rolling Release	\`https://github.com/AbhijotSingh2B/exaroton-ios/releases/download/latest/sidestore.json\`
+Build Unsigned IPA	Update Rolling Release	
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1706690Z   prerelease: true
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1706870Z   overwrite_files: true
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1708780Z   token: ***
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.1708930Z ##[endgroup]
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:18.7563610Z ≡ƒæ⌐ΓÇì≡ƒÅ¡ Creating new GitHub release for tag latest...
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:19.1100220Z ΓÜá∩╕Å GitHub release failed with status: 403
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:19.1112300Z {"message":"Resource not accessible by integration","documentation_url":"https://docs.github.com/rest/releases/releases#create-a-release","status":"403"}
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:19.1115730Z Skip retry ΓÇö your GitHub token/PAT does not have the required permission to create a release
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:19.1127270Z ΓÜá∩╕Å Unexpected error fetching GitHub release for tag refs/heads/development: HttpError: Resource not accessible by integration - https://docs.github.com/rest/releases/releases#create-a-release
+Build Unsigned IPA	Update Rolling Release	2026-08-10T15:08:19.1145260Z ##[error]Resource not accessible by integration - https://docs.github.com/rest/releases/releases#create-a-release
+Build Unsigned IPA	Post Checkout code	∩╗┐2026-08-10T15:08:19.1236380Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.1237640Z Post job cleanup.
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2002810Z [command]/opt/homebrew/bin/git version
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2220430Z git version 2.55.0
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2236950Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/0cf69960-a939-4f1c-8bd6-cd6e7f232486/.gitconfig'
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2243100Z Temporarily overriding HOME='/Users/runner/work/_temp/0cf69960-a939-4f1c-8bd6-cd6e7f232486' before making global git config changes
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2243850Z Adding repository directory to the temporary git global config as a safe directory
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2246740Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/exaroton-ios/exaroton-ios
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2353610Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.2412390Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.3189190Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.3245760Z http.https://github.com/.extraheader
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.3286480Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.3329060Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.4072530Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build Unsigned IPA	Post Checkout code	2026-08-10T15:08:19.4131980Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build Unsigned IPA	Complete job	∩╗┐2026-08-10T15:08:19.4925700Z Cleaning up orphan processes
+Build Unsigned IPA	Complete job	2026-08-10T15:08:19.8159180Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4, softprops/action-gh-release@v2. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -5,7 +5,6 @@ import SwiftUI
 struct ServerCardView: View {
 
     let server: ExarotonServer
-    @State private var pressed = false
     @State private var isBreathing = false
 
     private var statusTint: Color {
@@ -94,10 +93,6 @@ struct ServerCardView: View {
             } // close VStack
         } // close ZStack
         } // close GlassCard
-        .scaleEffect(pressed ? 0.95 : 1.0)
-        .opacity(pressed ? 0.9 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: pressed)
-        .onLongPressGesture(minimumDuration: 0, pressing: { p in pressed = p }, perform: {})
         .onAppear {
             if server.status.isOnline {
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {

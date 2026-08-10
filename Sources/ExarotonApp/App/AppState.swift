@@ -13,6 +13,7 @@ final class AppState: ObservableObject {
     @Published var isLoadingServers = false
     @Published var isLoadingAccount = false
     @Published var errorMessage: String?
+    @Published var showDebugConsole = false
 
     // MARK: Account
 

@@ -83,7 +83,7 @@ struct DashboardView: View {
                                     ServerCardView(server: server)
                                         .padding(.horizontal, 16)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(CardButtonStyle())
                             }
                         }
 
@@ -106,6 +106,10 @@ struct DashboardView: View {
                             .font(.system(size: 17, weight: .bold, design: .rounded))
                             .foregroundStyle(.white)
                     }
+                    .onTapGesture(count: 5) {
+                        appState.showDebugConsole = true
+                        DebugLogger.shared.log("Debug console activated via secret gesture.", category: .system)
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -119,6 +123,9 @@ struct DashboardView: View {
             }
             .sheet(isPresented: $showAccount) {
                 AccountView()
+            }
+            .sheet(isPresented: $appState.showDebugConsole) {
+                DebugConsoleView()
             }
         }
         .task {
@@ -200,5 +207,15 @@ struct DashboardView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 60)
+    }
+}
+
+// MARK: - Custom Button Style
+struct CardButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .opacity(configuration.isPressed ? 0.9 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }

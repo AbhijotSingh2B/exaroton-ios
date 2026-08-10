@@ -116,12 +116,16 @@ final class ServerWebSocket: ObservableObject {
         // Additional header auth as fallback
         let task = URLSession.shared.webSocketTask(with: request)
         self.task = task
+        
+        DebugLogger.shared.log("Connecting to WS...", category: .websocket)
+        
         task.resume()
         receiveLoop()
         startPing()
     }
 
     func disconnect() {
+        DebugLogger.shared.log("Disconnecting WS...", category: .websocket)
         pingTimer?.invalidate()
         task?.cancel(with: .normalClosure, reason: nil)
         task = nil
@@ -157,6 +161,9 @@ final class ServerWebSocket: ObservableObject {
     private func send(_ dict: [String: Any]) {
         guard let data = try? JSONSerialization.data(withJSONObject: dict),
               let text = String(data: data, encoding: .utf8) else { return }
+        
+        DebugLogger.shared.log("-> \(text)", category: .websocket)
+        
         task?.send(.string(text)) { _ in }
     }
 
@@ -180,6 +187,10 @@ final class ServerWebSocket: ObservableObject {
     private func handle(message: URLSessionWebSocketTask.Message) {
         switch message {
         case .string(let text):
+            // Don't log tick payloads since they spam the console every second
+            if !text.contains("\"type\":\"tick\"") {
+                DebugLogger.shared.log("<- \(text)", category: .websocket)
+            }
             guard let data = text.data(using: .utf8) else { return }
             handleData(data)
         case .data(let data):

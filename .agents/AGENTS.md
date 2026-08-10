@@ -14,6 +14,10 @@
 ## UI / UX
 - **Apple HIG Compliance:** Adhere to Apple's Human Interface Guidelines. For example, never request user permissions (like Push Notifications) immediately on app launch; wait for contextual user interaction.
 
+## Release & Distribution
+- **GitHub Releases:** Follow Semantic Versioning (`vX.Y.Z`). Always write structured release notes and generate releases directly from a pushed Git Tag. Use GitHub Actions to automate the building of `.ipa` files and attach them to the release along with a SHA256 checksum.
+- **SideStore Updates:** To maintain support for third-party sideloading stores like SideStore, any GitHub release must automate the updating of the `sidestore.json` file. The action should inject the new version number, release date, and direct `.ipa` download URL into the JSON source file, so users receive over-the-air updates.
+
 ## AI Agent Behavior & Anti-Hallucination
 - **Verify Before Writing:** Do not assume the existence of functions, models, or views. Always use `grep_search` or `list_dir` to verify the exact names of files, properties, and methods before attempting to call or edit them.
 - **Strict Pattern Matching:** When adding new features, strictly copy the architecture and styling patterns already present in the codebase (e.g., existing `GlassCard` usage, established `ExarotonClient` request formatting) rather than inventing new paradigms.
