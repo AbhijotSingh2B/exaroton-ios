@@ -20,11 +20,11 @@ The codebase currently has a few violations of the "Modern Concurrency" rule (wh
 ## 2. Feature Enhancements & QoL Improvements
 Based on modern iOS capabilities and the Exaroton API, the following features should be prioritized for future updates:
 
-- **Multi-Account Support**: As outlined in the `README.md`, implement account switching in `AccountView` by utilizing `KeychainManager` to store multiple `[ExarotonAccount]` objects.
-- **Widgets & Live Activities**: Introduce Home Screen and Lock Screen widgets to monitor server status and player counts at a glance. Use Live Activities (Dynamic Island) to track server startup/shutdown progress in real-time.
-- **Siri & App Intents Integration**: Add App Intents to allow users to start, stop, or restart their servers using Siri voice commands or the Apple Shortcuts app.
-- **Biometric Authentication (Face ID / Touch ID)**: Add an optional layer of security using `LocalAuthentication` for app launch or destructive actions (e.g., stopping the server, editing critical config files).
-- **iPadOS & macOS Optimization**: Update the UI to utilize `NavigationSplitView` for a true multi-column layout on iPad and Mac (via Mac Catalyst or native SwiftUI for macOS), which will significantly improve the file manager and console experience on larger screens.
-- **Log Filtering & Search**: Implement a search bar and severity filters (Info, Warning, Error) in `LogsView` to make parsing large server logs easier on mobile devices.
-- **Scroll Position on Refresh**: Fix the issue where refreshing causes the user to lose their scroll position on the page.
-- **Automatic Status Refresh**: Make the app automatically refresh server status/data when the server stops.
+- **[High-Med Priority] Multi-Account Support**: As outlined in the `README.md`, implement account switching in `AccountView` by utilizing `KeychainManager` to store multiple `[ExarotonAccount]` objects.
+- **[Medium Priority] Widgets & Live Activities**: Introduce Home Screen and Lock Screen widgets to monitor server status and player counts at a glance. Use Live Activities (Dynamic Island) to track server startup/shutdown progress in real-time.
+- **[Low-Med Priority] Siri & App Intents Integration**: Add App Intents to allow users to start, stop, or restart their servers using Siri voice commands or the Apple Shortcuts app.
+- **[High-Med Priority] Biometric Authentication (Face ID / Touch ID)**: Add an optional layer of security using `LocalAuthentication` for app launch or destructive actions (e.g., stopping the server, editing critical config files).
+- **[Medium Priority] iPadOS & macOS Optimization**: Update the UI to utilize `NavigationSplitView` for a true multi-column layout on iPad and Mac (via Mac Catalyst or native SwiftUI for macOS), which will significantly improve the file manager and console experience on larger screens.
+- **[Low Priority] Log Filtering & Search**: Implement a search bar and severity filters (Info, Warning, Error) in `LogsView` to make parsing large server logs easier on mobile devices.
+- **[High Priority Bug] Pull to Refresh**: Fix the issue where pulling down to refresh the page does not work.
+- **[High Priority Bug] Automatic Status Refresh**: Make the app automatically refresh server status/data when the server starts or stops.
