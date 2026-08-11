@@ -339,11 +339,12 @@ struct ServerDetailView: View {
     // MARK: - WebSocket
 
     private func setupWebSocket() async {
-        guard let url = await appState.client.webSocketURL(serverId: server.id) else { return }
-        let ws = ServerWebSocket(serverId: server.id, wsURL: url)
+        guard let req = await appState.client.webSocketRequest(serverId: server.id) else { return }
+        let ws = ServerWebSocket(serverId: server.id, wsRequest: req)
         ws.onStatusChange = { old, new in
             Task { @MainActor in
                 notifService.handleStatusChange(serverName: server.name, from: old, to: new)
+                await appState.loadServers()
             }
         }
         ws.connect()
@@ -354,6 +355,7 @@ struct ServerDetailView: View {
     private func performAction(_ action: @escaping () async throws -> Void) async {
         do {
             try await action()
+            await appState.loadServers()
         } catch {
             appState.errorMessage = error.localizedDescription
         }

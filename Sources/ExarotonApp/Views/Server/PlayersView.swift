@@ -163,8 +163,12 @@ struct PlayersView: View {
     // MARK: Actions
 
     private func loadAvailable() async {
+        errorMessage = nil
         do {
             availableLists = try await appState.client.getAvailablePlayerLists(serverId: server.id)
+            if !availableLists.isEmpty && !availableLists.contains(selectedList) {
+                selectedList = availableLists.first!
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -172,6 +176,7 @@ struct PlayersView: View {
 
     private func loadList() async {
         isLoading = true
+        errorMessage = nil
         defer { isLoading = false }
         do {
             playerList = try await appState.client.getPlayerList(serverId: server.id, list: selectedList)

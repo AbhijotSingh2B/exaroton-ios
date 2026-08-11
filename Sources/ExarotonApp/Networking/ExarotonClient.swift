@@ -278,13 +278,17 @@ actor ExarotonClient {
 
     // MARK: - WebSocket URL Helper
 
-    func webSocketURL(serverId: String) async -> URL? {
+    func webSocketRequest(serverId: String) async -> URLRequest? {
         guard let token = await accountManager.activeAccount?.token else { return nil }
         var components = URLComponents()
         components.scheme = "wss"
         components.host = "api.exaroton.com"
-        components.path = "/v1/servers/\(serverId)/websocket/"
+        components.path = "/v1/servers/\(serverId)/websocket"
         components.queryItems = [URLQueryItem(name: "authorization", value: token)]
-        return components.url
+        guard let url = components.url else { return nil }
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
     }
 }

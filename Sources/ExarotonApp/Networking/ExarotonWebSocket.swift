@@ -81,7 +81,7 @@ final class ServerWebSocket: ObservableObject {
     private var task: URLSessionWebSocketTask?
     private var pingTimer: Timer?
     private let serverId: String
-    private let wsURL: URL
+    private let wsRequest: URLRequest
     private var subscribedStreams: Set<WSStream> = []
     
     // Throttling
@@ -94,9 +94,9 @@ final class ServerWebSocket: ObservableObject {
 
     // MARK: Init
 
-    init(serverId: String, wsURL: URL) {
+    init(serverId: String, wsRequest: URLRequest) {
         self.serverId = serverId
-        self.wsURL = wsURL
+        self.wsRequest = wsRequest
         
         lineCancellable = lineSubject
             .collect(.byTime(DispatchQueue.main, .milliseconds(200)))
@@ -112,9 +112,7 @@ final class ServerWebSocket: ObservableObject {
     // MARK: Connect / Disconnect
 
     func connect() {
-        let request = URLRequest(url: wsURL)
-        // Additional header auth as fallback
-        let task = URLSession.shared.webSocketTask(with: request)
+        let task = URLSession.shared.webSocketTask(with: wsRequest)
         self.task = task
         
         DebugLogger.shared.log("Connecting to WS...", category: .websocket)

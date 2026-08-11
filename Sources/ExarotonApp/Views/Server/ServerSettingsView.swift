@@ -14,6 +14,7 @@ struct ServerSettingsView: View {
     @State private var isLoading = false
     @State private var isSaving = false
     @State private var successMessage: String?
+    @State private var errorMessage: String?
 
     var hasChanges: Bool { motd != originalMOTD || ram != originalRAM }
 
@@ -86,11 +87,16 @@ struct ServerSettingsView: View {
                 }
                 .padding(.horizontal, 16)
 
-                // Success message
+                // Messages
                 if let msg = successMessage {
                     Label(msg, systemImage: "checkmark.circle.fill")
                         .font(.system(size: 13, weight: .medium, design: .rounded))
                         .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                        .transition(.opacity.combined(with: .scale))
+                } else if let err = errorMessage {
+                    Label(err, systemImage: "xmark.octagon.fill")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
                         .transition(.opacity.combined(with: .scale))
                 }
 
@@ -147,17 +153,24 @@ struct ServerSettingsView: View {
 
     private func saveSettings() async {
         isSaving = true
+        errorMessage = nil
+        successMessage = nil
         defer { isSaving = false }
-        if motd != originalMOTD {
-            try? await appState.client.setMOTD(serverId: server.id, motd: motd)
-            originalMOTD = motd
+        
+        do {
+            if motd != originalMOTD {
+                try await appState.client.setMOTD(serverId: server.id, motd: motd)
+                originalMOTD = motd
+            }
+            if ram != originalRAM {
+                try await appState.client.setRAM(serverId: server.id, ram: ram)
+                originalRAM = ram
+            }
+            withAnimation { successMessage = "Settings saved!" }
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            withAnimation { successMessage = nil }
+        } catch {
+            withAnimation { errorMessage = error.localizedDescription }
         }
-        if ram != originalRAM {
-            try? await appState.client.setRAM(serverId: server.id, ram: ram)
-            originalRAM = ram
-        }
-        withAnimation { successMessage = "Settings saved!" }
-        try? await Task.sleep(nanoseconds: 2_500_000_000)
-        withAnimation { successMessage = nil }
     }
 }
