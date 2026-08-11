@@ -2,7 +2,13 @@ name: Build Exaroton IPA
 
 on:
   push:
+<<<<<<< Updated upstream
     branches: [main, development]
+=======
+    branches: [development]
+    tags:
+      - 'v*'
+>>>>>>> Stashed changes
   workflow_dispatch:
 
 permissions:
@@ -45,6 +51,7 @@ jobs:
             -archivePath "$GITHUB_WORKSPACE/build/ExarotonApp.xcarchive" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_ENTITLEMENTS="" \
             CODE_SIGN_IDENTITY="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             SKIP_INSTALL=NO \
@@ -75,6 +82,7 @@ jobs:
           mkdir -p Payload
           cp -r "$APP_PATH" Payload/
           zip -r ExarotonApp.ipa Payload/
+          shasum -a 256 ExarotonApp.ipa > ExarotonApp.ipa.sha256
           echo "IPA size: $(du -sh ExarotonApp.ipa | cut -f1)"
 
       # ─── Generate SideStore JSON ───────────────────────────────────────────────
@@ -123,6 +131,7 @@ jobs:
           name: ExarotonApp-IPA
           path: |
             ExarotonApp.ipa
+<<<<<<< Updated upstream
             sidestore.json
           retention-days: 30
 
@@ -161,3 +170,20 @@ jobs:
             5. Trust the developer certificate in iOS Settings → VPN & Device Management
             
             > The app must be **refreshed in AltStore every 7 days** (free Apple ID limit)
+=======
+            ExarotonApp.ipa.sha256
+          retention-days: 30
+
+      # ─── Release ──────────────────────────────────
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ExarotonApp.ipa
+            ExarotonApp.ipa.sha256
+          name: ${{ startsWith(github.ref, 'refs/tags/v') && format('Exaroton iOS {0}', github.ref_name) || 'Latest Nightly Build' }}
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'nightly' }}
+          body: |
+            ${{ startsWith(github.ref, 'refs/tags/v') && 'Stable release.' || '## Automated Nightly Release\nThis release is automatically updated on every push to `development`.' }}
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+>>>>>>> Stashed changes

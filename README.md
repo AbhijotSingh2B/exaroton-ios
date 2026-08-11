@@ -22,40 +22,30 @@ A full-featured native iOS app for managing [Exaroton](https://exaroton.com) Min
 - iOS 17.0+  (Liquid Glass on iOS 26+, ultraThinMaterial fallback on iOS 17–25)
 - An [Exaroton API token](https://exaroton.com/account/)
 
-## Sideloading via AltStore
+## Sideloading & Beta Access (SideStore)
 
-This app is distributed as an **unsigned IPA**. You need [AltStore](https://altstore.io) to install it.
+This app is distributed as an **unsigned IPA**. We natively support [SideStore](https://sidestore.io) for untethered, on-device sideloading and Over-The-Air (OTA) updates!
 
-### Step 1 — Build the IPA
+### Step 1 — Add the Source
 
-Push to `main` on GitHub. The Actions workflow automatically:
-1. Installs XcodeGen
-2. Generates the Xcode project
-3. Builds an unsigned IPA
-4. Uploads it as an Actions artifact
+We automatically publish our beta releases to a SideStore-compatible source JSON. 
+Add this URL to your SideStore sources:
+`https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/development/sidestore.json`
 
-### Step 2 — Download the IPA
+*(Note: Ensure you are tracking the `development` branch for the latest beta updates!)*
 
-Go to your repository → **Actions** → latest workflow run → **Artifacts** → download `ExarotonApp-IPA.zip`
+### Step 2 — Install & Update
 
-### Step 3 — Install with AltStore
+1. Open **SideStore** on your iPhone or iPad.
+2. Navigate to the **Sources** tab and add the URL above.
+3. Find **Exaroton** and tap **Install**.
+4. Whenever we push a new beta, SideStore will notify you, allowing you to update directly from your device!
 
-1. Connect your iPhone to your Mac/PC (or use AltStore via Wi-Fi)
-2. Open **AltStore** on your computer
-3. Drag the `.ipa` file onto the AltStore window, or use **My Apps → +**
-4. AltStore signs it with your free Apple ID and installs it
-5. On your iPhone: **Settings → VPN & Device Management** → trust your developer certificate
+> **Refresh reminder**: With a free Apple ID, sideloaded apps expire every **7 days**. Open SideStore and tap **Refresh** while connected to the SideStore WireGuard VPN to extend it without a computer.
 
-> **Refresh reminder**: With a free Apple ID, apps expire every **7 days**. Open AltStore and tap **Refresh All** to extend.
+### AltStore Fallback
 
-### Release via Tags
-
-Push a git tag (e.g. `v1.0.0`) to automatically create a GitHub Release with the IPA attached:
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
+If you prefer [AltStore](https://altstore.io), you can still manually download the `ExarotonApp-IPA.zip` from our GitHub Actions artifacts or Releases tab and install it manually via your computer.
 
 ## Project Structure
 

@@ -1,0 +1,135 @@
+name: Update SideStore JSON
+
+on:
+  workflow_run:
+    workflows: ["Build Exaroton IPA"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-repo:
+    name: Update Unified SideStore JSON
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    steps:
+      - name: Generate Unified JSON
+        run: |
+          REPO="${{ github.repository }}"
+          API_URL="https://api.github.com/repos/$REPO/releases/tags"
+          
+          # Helper function to get size and date from a release
+          get_release_info() {
+            local tag=$1
+            local res=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$API_URL/$tag")
+            
+            # Extract size and published_at using jq
+            local size=$(echo "$res" | jq -r '.assets[] | select(.name == "ExarotonApp.ipa") | .size' | head -n 1)
+            local date=$(echo "$res" | jq -r '.published_at' | head -n 1)
+            
+            # If not found or empty, provide defaults
+            if [ -z "$size" ] || [ "$size" == "null" ]; then size=0; fi
+            if [ -z "$date" ] || [ "$date" == "null" ]; then date=$(date -u +"%Y-%m-%dT%H:%M:%SZ"); fi
+            
+            echo "$size|$date"
+          }
+          
+          # Fetch for stable (Latest Semantic Tag vX.Y.Z)
+          RELEASES_JSON=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$REPO/releases")
+          LATEST_STABLE=$(echo "$RELEASES_JSON" | jq -r '[.[] | select(.tag_name | startswith("v"))] | sort_by(.published_at) | reverse | .[0]')
+          STABLE_TAG=$(echo "$LATEST_STABLE" | jq -r '.tag_name')
+          
+          if [ "$STABLE_TAG" == "null" ] || [ -z "$STABLE_TAG" ]; then
+            STABLE_TAG="v1.0.0"
+            STABLE_VERSION="1.0.0"
+            STABLE_SIZE=0
+            STABLE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            STABLE_URL="https://github.com/$REPO/releases/download/v1.0.0/ExarotonApp.ipa"
+          else
+            STABLE_VERSION=${STABLE_TAG#v}
+            STABLE_SIZE=$(echo "$LATEST_STABLE" | jq -r '.assets[] | select(.name == "ExarotonApp.ipa") | .size')
+            STABLE_DATE=$(echo "$LATEST_STABLE" | jq -r '.published_at')
+            STABLE_URL="https://github.com/$REPO/releases/download/$STABLE_TAG/ExarotonApp.ipa"
+          fi
+          
+          if [ -z "$STABLE_SIZE" ] || [ "$STABLE_SIZE" == "null" ]; then STABLE_SIZE=0; fi
+          
+          # Fetch for nightly
+          NIGHTLY_INFO=$(get_release_info "nightly")
+          NIGHTLY_SIZE=$(echo "$NIGHTLY_INFO" | cut -d'|' -f1)
+          NIGHTLY_DATE=$(echo "$NIGHTLY_INFO" | cut -d'|' -f2)
+          NIGHTLY_URL="https://github.com/$REPO/releases/download/nightly/ExarotonApp.ipa"
+          
+          # Use workflow run number for nightly versioning so OTA updates trigger
+          RUN_NUM="${{ github.event.workflow_run.run_number || github.run_number }}"
+          NIGHTLY_VERSION="1.0.$RUN_NUM"
+          
+          # Generate sidestore.json
+          cat <<EOF > sidestore.json
+          {
+            "name": "Exaroton iOS",
+            "identifier": "com.exaroton.repo.dev",
+            "description": "Official SideStore repository for the Exaroton iOS App.",
+            "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+            "apps": [
+              {
+                "name": "Exaroton (Stable)",
+                "bundleIdentifier": "com.exaroton.ios",
+                "developerName": "Abhijot Singh",
+                "subtitle": "Manage your Minecraft servers on the go.",
+                "localizedDescription": "Stable release of the Exaroton iOS App.",
+                "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+                "tintColor": "#4CE680",
+                "versions": [
+                  {
+                    "version": "$STABLE_VERSION",
+                    "buildVersion": "$STABLE_VERSION",
+                    "date": "$STABLE_DATE",
+                    "localizedDescription": "Stable Build $STABLE_TAG",
+                    "downloadURL": "$STABLE_URL",
+                    "size": $STABLE_SIZE
+                  }
+                ]
+              },
+              {
+                "name": "Exaroton (Nightly)",
+                "bundleIdentifier": "com.exaroton.ios",
+                "developerName": "Abhijot Singh",
+                "subtitle": "Latest development features for your Minecraft servers.",
+                "localizedDescription": "Nightly release of the Exaroton iOS App containing the absolute latest changes. May contain bugs.",
+                "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+                "tintColor": "#4CE680",
+                "versions": [
+                  {
+                    "version": "$NIGHTLY_VERSION",
+                    "buildVersion": "$RUN_NUM",
+                    "date": "$NIGHTLY_DATE",
+                    "localizedDescription": "Nightly Build $RUN_NUM",
+                    "downloadURL": "$NIGHTLY_URL",
+                    "size": $NIGHTLY_SIZE
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+          
+          cat sidestore.json
+
+      - name: Publish Unified JSON
+        uses: softprops/action-gh-release@v2
+        with:
+          files: sidestore.json
+          name: "SideStore Repository"
+          tag_name: "sidestore"
+          body: |
+            ## SideStore Unified Repository
+            Add the following URL to SideStore to get access to both Stable and Nightly builds:
+            \`https://github.com/${{ github.repository }}/releases/download/sidestore/sidestore.json\`
+            
+            *Note: Installing one will overwrite the other, as they share the same Bundle Identifier.*
+          prerelease: false
