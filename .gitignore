@@ -19,3 +19,8 @@ Payload/
 
 # Swift Package Manager
 .swiftpm/
+
+# AI generated docs and logs
+ai_docs/
+*.txt
+*.log
