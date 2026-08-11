@@ -36,7 +36,10 @@ jobs:
             
             # If not found or empty, provide defaults
             if [ -z "$size" ] || [ "$size" == "null" ]; then size=0; fi
-            if [ -z "$date" ] || [ "$date" == "null" ]; then date=$(date -u +"%Y-%m-%dT%H:%M:%SZ"); fi
+            if [ -z "$date" ] || [ "$date" == "null" ]; then date=$(date -u +"%Y-%m-%d"); fi
+            
+            # Format date strictly to YYYY-MM-DD
+            date=$(echo "$date" | cut -d'T' -f1)
             
             echo "$size|$date"
           }
@@ -50,7 +53,7 @@ jobs:
             STABLE_TAG="v1.0.0"
             STABLE_VERSION="1.0.0"
             STABLE_SIZE=0
-            STABLE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            STABLE_DATE=$(date -u +"%Y-%m-%d")
             STABLE_URL="https://github.com/$REPO/releases/download/v1.0.0/ExarotonApp.ipa"
           else
             STABLE_VERSION=${STABLE_TAG#v}
@@ -60,6 +63,7 @@ jobs:
           fi
           
           if [ -z "$STABLE_SIZE" ] || [ "$STABLE_SIZE" == "null" ]; then STABLE_SIZE=0; fi
+          STABLE_DATE=$(echo "$STABLE_DATE" | cut -d'T' -f1)
           
           # Fetch for nightly
           NIGHTLY_INFO=$(get_release_info "nightly")
@@ -74,6 +78,7 @@ jobs:
           # Generate sidestore.json
           cat <<EOF > sidestore.json
           {
+            "\$schema": "https://github.com/SideStore/sidestore-source-types/raw/main/schema.json",
             "name": "Exaroton iOS",
             "identifier": "com.exaroton.repo.dev",
             "description": "Official SideStore repository for the Exaroton iOS App.",
