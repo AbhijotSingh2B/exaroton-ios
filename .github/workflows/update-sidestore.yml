@@ -120,16 +120,20 @@ jobs:
           
           cat sidestore.json
 
-      - name: Publish Unified JSON
-        uses: softprops/action-gh-release@v2
-        with:
-          files: sidestore.json
-          name: "SideStore Repository"
-          tag_name: "sidestore"
-          body: |
-            ## SideStore Unified Repository
-            Add the following URL to SideStore to get access to both Stable and Nightly builds:
-            \`https://github.com/${{ github.repository }}/releases/download/sidestore/sidestore.json\`
-            
-            *Note: Installing one will overwrite the other, as they share the same Bundle Identifier.*
-          prerelease: false
+      - name: Publish to sidestore branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Save the generated file
+          cp sidestore.json /tmp/sidestore.json
+          
+          # Create a fresh orphan branch
+          git checkout --orphan sidestore_branch
+          git rm -rf .
+          
+          # Restore the file
+          mv /tmp/sidestore.json .
+          git add sidestore.json
+          git commit -m "Update sidestore.json [skip ci]"
+          git push origin sidestore_branch:sidestore --force
