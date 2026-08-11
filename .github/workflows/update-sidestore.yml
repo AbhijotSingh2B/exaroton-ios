@@ -105,7 +105,7 @@ jobs:
               },
               {
                 "name": "Exaroton (Nightly)",
-                "bundleIdentifier": "com.exaroton.ios",
+                "bundleIdentifier": "com.exaroton.ios.nightly",
                 "developerName": "Abhijot Singh",
                 "subtitle": "Latest development features for your Minecraft servers.",
                 "localizedDescription": "Nightly release of the Exaroton iOS App containing the absolute latest changes. May contain bugs.",
