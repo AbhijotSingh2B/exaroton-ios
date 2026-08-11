@@ -71,12 +71,8 @@ jobs:
           NIGHTLY_DATE=$(echo "$NIGHTLY_INFO" | cut -d'|' -f2)
           NIGHTLY_URL="https://github.com/$REPO/releases/download/nightly/ExarotonApp.ipa"
           
-          # Use workflow run number for nightly versioning so OTA updates trigger
-          if [ -z "${{ github.event.workflow_run.run_number }}" ]; then
-            RUN_NUM=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$REPO/actions/workflows/build-ipa.yml/runs?status=success&per_page=1" | jq -r '.workflow_runs[0].run_number')
-          else
-            RUN_NUM="${{ github.event.workflow_run.run_number }}"
-          fi
+          # Use the actual run number of the latest successful Nightly build from the development branch
+          RUN_NUM=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$REPO/actions/workflows/build-ipa.yml/runs?branch=development&status=success&per_page=1" | jq -r '.workflow_runs[0].run_number')
           
           if [ -z "$RUN_NUM" ] || [ "$RUN_NUM" == "null" ]; then RUN_NUM=1; fi
           NIGHTLY_VERSION="1.0.$RUN_NUM"
