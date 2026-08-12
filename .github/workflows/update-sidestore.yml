@@ -68,7 +68,7 @@ jobs:
           # Fetch for nightly
           NIGHTLY_INFO=$(get_release_info "nightly")
           NIGHTLY_SIZE=$(echo "$NIGHTLY_INFO" | cut -d'|' -f1)
-          NIGHTLY_DATE=$(echo "$NIGHTLY_INFO" | cut -d'|' -f2)
+          NIGHTLY_DATE=$(date -u +"%Y-%m-%d")
           NIGHTLY_URL="https://github.com/$REPO/releases/download/nightly/ExarotonApp.ipa"
           
           # Use the actual run number of the latest successful Nightly build from the development branch
