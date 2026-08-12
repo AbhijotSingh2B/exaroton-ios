@@ -88,14 +88,31 @@ Our GitHub Action should run a Python or Bash script during release that outputs
     {
       "name": "Exaroton",
       "bundleIdentifier": "com.exaroton.ios",
-      "version": "1.0.1",
-      "versionDate": "2026-08-11T12:00:00Z",
-      "size": 15482910,
-      "downloadURL": "https://github.com/YOUR_REPO/releases/download/v1.0.1/Exaroton.ipa",
+      "developerName": "Abhijot Singh",
       "localizedDescription": "Manage your Exaroton servers.",
-      "iconURL": "https://raw.githubusercontent.com/YOUR_REPO/main/icon.png"
+      "iconURL": "https://raw.githubusercontent.com/YOUR_REPO/main/icon.png",
+      "versions": [
+        {
+          "version": "1.0.1",
+          "date": "2026-08-11",
+          "size": 15482910,
+          "downloadURL": "https://github.com/YOUR_REPO/releases/download/v1.0.1/Exaroton.ipa"
+        }
+      ]
     }
   ]
 }
 ```
 When users add this JSON file's raw URL to their SideStore app on their iPhone, they will receive a push notification whenever we publish a new GitHub Release!
+
+## 5. Deployment Gotchas (Resolved)
+
+During the CI/CD and SideStore integration pipeline, two critical issues were resolved that should be maintained in future updates:
+
+### SideStore "Unable to access backup" Error
+- **The Issue:** SideStore strictly requires the `bundleIdentifier` in the `sidestore.json` array to match the actual internal `PRODUCT_BUNDLE_IDENTIFIER` of the compiled `.ipa`. If they mismatch, SideStore crashes during the backup phase prior to installation.
+- **The Fix:** Since we wanted Stable and Nightly builds to be installable side-by-side, we dynamically inject distinct Bundle Identifiers (`com.exaroton.ios` for Stable, and `com.exaroton.ios.nightly` for Nightly) directly into the `xcodebuild` parameters via GitHub Actions (`build-ipa.yml`).
+
+### XcodeGen Silently Dropping App Icons
+- **The Issue:** XcodeGen does not support a `resources` block for targets in `project.yml`. Attempting to map `Assets.xcassets` (or the `Resources` folder) inside an invalid `resources` block will cause XcodeGen to silently ignore it, resulting in a compiled IPA completely missing its App Icon and other assets.
+- **The Fix:** Place all resource directories directly under the `sources` array in `project.yml`. XcodeGen will automatically detect `.xcassets` and assign them to the Copy Bundle Resources build phase.
