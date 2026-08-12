@@ -1,0 +1,47 @@
+{
+  "$schema": "https://github.com/SideStore/sidestore-source-types/raw/main/schema.json",
+  "name": "Exaroton iOS",
+  "identifier": "com.exaroton.repo.dev",
+  "description": "Official SideStore repository for the Exaroton iOS App.",
+  "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+  "apps": [
+    {
+      "name": "Exaroton (Stable)",
+      "bundleIdentifier": "com.exaroton.ios",
+      "developerName": "Abhijot Singh",
+      "subtitle": "Manage your Minecraft servers on the go.",
+      "localizedDescription": "Stable release of the Exaroton iOS App.",
+      "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+      "tintColor": "#4CE680",
+      "versions": [
+        {
+          "version": "1.0.30",
+          "buildVersion": "1.0.30",
+          "date": "2026-08-12",
+          "localizedDescription": "Stable Build v1.0.30",
+          "downloadURL": "https://github.com/AbhijotSingh2B/exaroton-ios/releases/download/v1.0.30/ExarotonApp.ipa",
+          "size": 3109589
+        }
+      ]
+    },
+    {
+      "name": "Exaroton (Nightly)",
+      "bundleIdentifier": "com.exaroton.ios.nightly",
+      "developerName": "Abhijot Singh",
+      "subtitle": "Latest development features for your Minecraft servers.",
+      "localizedDescription": "Nightly release of the Exaroton iOS App containing the absolute latest changes. May contain bugs.",
+      "iconURL": "https://raw.githubusercontent.com/AbhijotSingh2B/exaroton-ios/main/Sources/ExarotonApp/Resources/Assets.xcassets/AppIcon.appiconset/icon.png",
+      "tintColor": "#4CE680",
+      "versions": [
+        {
+          "version": "1.0.47",
+          "buildVersion": "47",
+          "date": "2026-08-12",
+          "localizedDescription": "Nightly Build 47",
+          "downloadURL": "https://github.com/AbhijotSingh2B/exaroton-ios/releases/download/nightly/ExarotonApp.ipa",
+          "size": 3109603
+        }
+      ]
+    }
+  ]
+}
